@@ -1,18 +1,23 @@
-import type { Config } from "tailwindcss";
+import { withTV } from 'tailwind-variants/transformer';
+import type { Config } from 'tailwindcss';
 
-export default {
-  content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-  ],
-  theme: {
-    extend: {
-      colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+export default withTV({
+   content: [
+      './src/core/**/*.{js,ts,jsx,tsx,mdx}',
+      './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+   ],
+   theme: {
+      extend: {
+         animation: {
+            fadeIn: 'fadeIn 0.16s ease-in-out',
+         },
+         keyframes: {
+            fadeIn: {
+               '0%': { transform: 'scale(0.98)' },
+               '100%': { transform: 'scale(1)' },
+            },
+         },
       },
-    },
-  },
-  plugins: [],
-} satisfies Config;
+   },
+   plugins: [],
+}) satisfies Config;
