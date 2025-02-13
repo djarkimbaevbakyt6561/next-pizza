@@ -7,13 +7,11 @@ export default withTV({
       './src/app/**/*.{js,ts,jsx,tsx,mdx}',
    ],
    theme: {
-      colors: {
-         textColor: '#373737',
-      },
-      backgroundColor: {
-         bgColorButton: '#FE5F00',
-      },
       extend: {
+         colors: {
+            textColor: '#373737',
+            bgColorButton: '#FE5F00',
+         },
          animation: {
             fadeIn: 'fadeIn 0.16s ease-in-out',
          },
