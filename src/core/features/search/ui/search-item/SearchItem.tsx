@@ -6,7 +6,7 @@ import { highlightText } from '../model/consts';
 
 const searchItem = tv({
    slots: {
-      base: 'w-full px-4 py-3 flex items-center gap-4 hover:bg-orange-50',
+      base: 'w-full rounded-md px-4 py-3 flex items-center gap-4 hover:bg-orange-50',
       imageClass: 'w-[1.875rem] h-[1.875rem]',
       priceClass: 'text-neutral-400',
    },
@@ -29,18 +29,16 @@ export const SearchItem: FC<SearchItemProps> = ({
 }) => {
    const { base, imageClass, priceClass } = searchItem();
    return (
-      <li>
-         <Link className={base()} href={`/details/${id}`}>
-            <Image
-               className={imageClass()}
-               width={30}
-               height={30}
-               src={image}
-               alt={title}
-            />
-            <p>{highlightText(title, query)}</p>
-            <p className={priceClass()}>{price}s</p>
-         </Link>
-      </li>
+      <Link className={base()} href={`/details/${id}`}>
+         <Image
+            className={imageClass()}
+            width={30}
+            height={30}
+            src={image}
+            alt={title}
+         />
+         <p>{highlightText(title, query)}</p>
+         <p className={priceClass()}>{price} $</p>
+      </Link>
    );
 };

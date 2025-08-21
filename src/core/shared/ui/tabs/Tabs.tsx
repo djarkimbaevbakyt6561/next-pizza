@@ -26,6 +26,7 @@ export const Tabs: FC<TabsProps> = ({
 }) => {
    const { base, glider } = tabs();
    const tabsRef = useRef<HTMLUListElement>(null);
+
    const gliderState = useGliderPosition(tabsRef, selectedItemIndex, children);
 
    return (

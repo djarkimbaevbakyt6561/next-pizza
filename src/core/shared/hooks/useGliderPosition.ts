@@ -1,4 +1,4 @@
-import { ReactNode, RefObject, useLayoutEffect, useState } from 'react';
+import { ReactNode, RefObject, useEffect, useState } from 'react';
 
 export const useGliderPosition = (
    tabsRef: RefObject<HTMLUListElement | null>,
@@ -7,17 +7,21 @@ export const useGliderPosition = (
 ) => {
    const [state, setState] = useState({ width: 0, left: 0 });
 
-   useLayoutEffect(() => {
-      const selectedElement = tabsRef.current?.children[
-         selectedItemIndex
-      ] as HTMLElement;
-      if (selectedElement) {
-         setState({
-            width: selectedElement.offsetWidth,
-            left: selectedElement.offsetLeft,
-         });
-      }
-   }, [tabsRef, selectedItemIndex, tabs]);
+   useEffect(() => {
+      const timer = setTimeout(() => {
+         const selectedElement = tabsRef.current?.children[
+            selectedItemIndex
+         ] as HTMLElement;
+         if (selectedElement) {
+            setState({
+               width: selectedElement.offsetWidth,
+               left: selectedElement.offsetLeft,
+            });
+         }
+      }, 0);
+
+      return () => clearTimeout(timer);
+   }, [selectedItemIndex, tabsRef, tabs]);
 
    return state;
 };

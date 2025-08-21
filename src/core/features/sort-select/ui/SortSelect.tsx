@@ -1,9 +1,9 @@
 'use client';
+import { Dropdown } from 'antd';
 import clsx from 'clsx';
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import { tv } from 'tailwind-variants';
 import { SortIcon } from 'shared/assets';
-import { Dropdown } from 'shared/ui';
 
 const sortList = [
    {
@@ -32,11 +32,10 @@ const sortSelect = tv(
    {
       slots: {
          dropdown: 'font-bold',
-         dropdownContent: 'right-0',
          dropdownItem:
             'w-full px-4 py-2 text-start font-semibold hover:bg-neutral-100/50',
          selectedDropdownItem:
-            'border-l-2 pl-[0.875rem] border-orange-500 bg-orange-50 text-orange-500 hover:!bg-orange-50',
+            'border-l-2 pl-[0.875rem] rounded-tr-md rounded-br-md border-orange-500 bg-orange-50 text-orange-500 hover:!bg-orange-50',
          button: 'flex items-center bg-neutral-50 px-5 py-4 rounded-xl',
          buttonSpan: 'text-orange-500 ml-1',
       },
@@ -56,20 +55,18 @@ const sortSelect = tv(
    },
 );
 
-export const PizzaSortSelect = () => {
-   const {
-      dropdown,
-      dropdownContent,
-      dropdownItem,
-      selectedDropdownItem,
-      button,
-      buttonSpan,
-   } = sortSelect({
-      size: {
-         initial: 'initial',
-         md: 'medium',
-      },
-   });
+interface PizzaSortSelectProps {
+   className?: string;
+}
+
+export const PizzaSortSelect: FC<PizzaSortSelectProps> = ({ className }) => {
+   const { dropdown, dropdownItem, selectedDropdownItem, button, buttonSpan } =
+      sortSelect({
+         size: {
+            initial: 'initial',
+            md: 'medium',
+         },
+      });
    const [isOpen, setIsOpen] = useState(false);
    const [selectedSort, setSelectedSort] = useState('rating');
 
@@ -77,44 +74,37 @@ export const PizzaSortSelect = () => {
       setIsOpen(prev => !prev);
    };
 
-   const changeSelectedSortHandler = (sort: string) => {
-      setSelectedSort(sort);
-      setIsOpen(false);
-   };
+   const menuItems = sortList.map(el => ({
+      key: el.id.toString(),
+      label: (
+         <button
+            type="button"
+            className={clsx(
+               dropdownItem(),
+               el.value === selectedSort && selectedDropdownItem(),
+            )}
+            onClick={() => setSelectedSort(el.value)}
+         >
+            {el.title}
+         </button>
+      ),
+   }));
 
    return (
       <Dropdown
-         className={dropdown()}
-         contentClassName={dropdownContent()}
-         isOpen={isOpen}
-         labelElement={
-            <button
-               type="button"
-               onClick={toggleSortMenuHandler}
-               className={button()}
-            >
-               <SortIcon className="mr-3" />
-               Sorting: <span className={buttonSpan()}>{selectedSort}</span>
-            </button>
-         }
+         open={isOpen}
+         menu={{ items: menuItems }}
+         className={clsx(dropdown())}
       >
-         <ul role="menu">
-            {sortList.map(el => {
-               const selectedClass =
-                  el.value === selectedSort && selectedDropdownItem();
-               return (
-                  <li key={el.id} role="menuitem">
-                     <button
-                        className={clsx(dropdownItem(), selectedClass)}
-                        type="button"
-                        onClick={() => changeSelectedSortHandler(el.value)}
-                     >
-                        {el.title}
-                     </button>
-                  </li>
-               );
-            })}
-         </ul>
+         <button
+            type="button"
+            onClick={toggleSortMenuHandler}
+            className={clsx(button(), className)}
+         >
+            <SortIcon className="mr-3" />
+            Sorting:
+            <span className={buttonSpan()}>{selectedSort}</span>
+         </button>
       </Dropdown>
    );
 };

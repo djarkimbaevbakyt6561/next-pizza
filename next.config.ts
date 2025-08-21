@@ -8,9 +8,15 @@ const nextConfig: NextConfig = {
       remotePatterns: [
          {
             protocol: 'https',
-            hostname: 'upload.wikimedia.org',
+            hostname: 'media.dodostatic.net',
             port: '',
-            pathname: '/wikipedia/commons/thumb/**',
+            pathname: '/image/**',
+         },
+         {
+            protocol: 'https',
+            hostname: 'cdn.dodostatic.net',
+            port: '',
+            pathname: '/static/Img/Ingredients/**',
          },
       ],
    },

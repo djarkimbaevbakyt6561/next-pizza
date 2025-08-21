@@ -1,0 +1,25 @@
+<svg viewBox="0 0 15.3999 15.4004" xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink" width="15.399902" height="15.400391" fill="none"
+    customFrame="#000000">
+    <g id="Group">
+        <path id="Vector"
+            d="M4.375 0C4.85825 0 5.25 0.391751 5.25 0.875L5.25 4.375C5.25 4.85825 4.85825 5.25 4.375 5.25L0.875 5.25C0.391751 5.25 0 4.85825 0 4.375L0 0.875C0 0.391751 0.391751 0 0.875 0L4.375 0Z"
+            stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+            stroke-width="1.39999998"
+            transform="matrix(-4.37114e-08,-1,1,-4.37114e-08,0.699951,14.7002)" />
+        <path id="Vector"
+            d="M4.375 0C4.85825 0 5.25 0.391751 5.25 0.875L5.25 4.375C5.25 4.85825 4.85825 5.25 4.375 5.25L0.875 5.25C0.391751 5.25 0 4.85825 0 4.375L0 0.875C0 0.391751 0.391751 0 0.875 0L4.375 0Z"
+            stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+            stroke-width="1.39999998"
+            transform="matrix(-4.37114e-08,-1,1,-4.37114e-08,0.699951,5.9502)" />
+        <path id="Vector"
+            d="M4.375 0C4.85825 0 5.25 0.391751 5.25 0.875L5.25 4.375C5.25 4.85825 4.85825 5.25 4.375 5.25L0.875 5.25C0.391751 5.25 0 4.85825 0 4.375L0 0.875C0 0.391751 0.391751 0 0.875 0L4.375 0Z"
+            stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+            stroke-width="1.39999998"
+            transform="matrix(-4.37114e-08,-1,1,-4.37114e-08,9.44995,14.7002)" />
+        <path id="Vector" d="M5.25 2.625L0 2.625L5.25 2.625ZM2.625 0L2.625 5.25" fill-rule="nonzero"
+            stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+            stroke-width="1.39999998"
+            transform="matrix(-4.37114e-08,-1,1,-4.37114e-08,9.44995,5.9502)" />
+    </g>
+</svg>

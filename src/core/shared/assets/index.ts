@@ -3,6 +3,7 @@ import AvatarIcon from './icons/avatar.svg';
 import BasketIcon from './icons/basket.svg';
 import CheckmarkIcon from './icons/checkmark.svg';
 import CrossIcon from './icons/cross.svg';
+import FilterIcon from './icons/filter.svg';
 import SortIcon from './icons/sort.svg';
 
 // Images
@@ -17,5 +18,6 @@ export {
    BasketIcon,
    CheckmarkIcon,
    CrossIcon,
+   FilterIcon,
    SortIcon,
 };

@@ -1,15 +1,15 @@
+'use client';
+import { Button } from 'antd';
 import { tv } from 'tailwind-variants';
 import { Search } from 'features/search';
 import { AvatarIcon, BasketIcon } from 'shared/assets';
-import { Button } from 'shared/ui';
 
 const actions = tv(
    {
       slots: {
          searchWrapper: ' flex justify-end',
          search: 'z-30 max-w-[47.75rem] flex-1',
-         signInButton: 'justify-self-end px-4 h-[3rem]',
-         basketButton: 'px-[0.875rem] h-[3rem]',
+         signInButton: 'justify-self-end ',
       },
       variants: {
          size: {
@@ -26,7 +26,7 @@ const actions = tv(
 );
 
 export const HeaderActions = () => {
-   const { searchWrapper, search, signInButton, basketButton } = actions({
+   const { searchWrapper, search, signInButton } = actions({
       size: {
          initial: 'initial',
          md: 'medium',
@@ -37,11 +37,16 @@ export const HeaderActions = () => {
          <div className={searchWrapper()}>
             <Search className={search()} />
          </div>
-         <Button className={signInButton()}>
-            <AvatarIcon className="mb-1" />
+         <Button
+            color="primary"
+            className={signInButton()}
+            variant="outlined"
+            onClick={() => {}}
+            icon={<AvatarIcon />}
+         >
             Sign In
          </Button>
-         <Button className={basketButton()}>
+         <Button color="primary" variant="outlined" onClick={() => {}}>
             <BasketIcon />
          </Button>
       </>

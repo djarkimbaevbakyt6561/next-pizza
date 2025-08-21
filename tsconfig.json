@@ -27,7 +27,7 @@
       }
    },
    "include": [
-      "src/app/global.d.ts",
+      "src/core/app/types/global.d.ts",
       "next-env.d.ts",
       "**/*.ts",
       "**/*.tsx",

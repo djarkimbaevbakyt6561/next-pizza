@@ -1,8 +1,8 @@
 'use client';
+import { ConfigProvider, Dropdown } from 'antd';
 import { ChangeEvent, FC, useRef, useState } from 'react';
 import { tv } from 'tailwind-variants';
 import { CrossIcon } from 'shared/assets';
-import { Dropdown } from 'shared/ui';
 import MagnifyingGlass from '../assets/magnifying-glass.svg';
 import { SearchItem } from './search-item/SearchItem';
 
@@ -12,7 +12,6 @@ interface SearchProps {
 
 const search = tv({
    slots: {
-      dropdownContent: 'ring-1 ring-black/5',
       inputContainer: 'relative flex items-center',
       input: 'bg-neutral-50 pl-11 pr-9 py-3 rounded-xl w-full  placeholder:text-gray-400/75 focus:outline-none',
       magnifyingGlass: 'absolute left-4',
@@ -22,14 +21,8 @@ const search = tv({
 });
 
 export const Search: FC<SearchProps> = ({ className }) => {
-   const {
-      dropdownContent,
-      inputContainer,
-      input,
-      magnifyingGlass,
-      removeButton,
-      backdrop,
-   } = search();
+   const { inputContainer, input, magnifyingGlass, removeButton, backdrop } =
+      search();
    const [inputValue, setInputValue] = useState('');
    const inputRef = useRef<HTMLInputElement>(null);
 
@@ -41,47 +34,59 @@ export const Search: FC<SearchProps> = ({ className }) => {
       setInputValue('');
       inputRef.current?.focus();
    };
+   const menu = [
+      {
+         key: '1',
+         label: (
+            <SearchItem
+               title="Cheeseburger pizza"
+               id="1"
+               price={5}
+               image="https://media.dodostatic.net/image/r:584x584/11ee7d6025e8bf7c96ffc8c8aa80fe57.avif"
+               query={inputValue}
+            />
+         ),
+      },
+   ];
 
    return (
-      <>
+      <ConfigProvider
+         theme={{
+            components: {
+               Dropdown: {
+                  paddingBlock: 0,
+                  controlPaddingHorizontal: 0,
+               },
+            },
+         }}
+      >
          {inputValue.length !== 0 && <div className={backdrop()} />}
          <Dropdown
             className={className}
-            contentClassName={dropdownContent()}
-            isOpen={inputValue.length !== 0}
-            labelElement={
-               <div className={inputContainer()}>
-                  <MagnifyingGlass className={magnifyingGlass()} />
-                  <input
-                     ref={inputRef}
-                     className={input()}
-                     type="text"
-                     placeholder="Pizza search..."
-                     value={inputValue}
-                     onChange={handleSearchInputChange}
-                  />
-                  {inputValue.length !== 0 && (
-                     <button
-                        className={removeButton()}
-                        type="button"
-                        onClick={clearInputValue}
-                     >
-                        <CrossIcon />
-                     </button>
-                  )}
-               </div>
-            }
+            open={inputValue.length !== 0}
+            menu={{ items: menu }}
          >
-            <ul>
-               <SearchItem
-                  title="Чизбургер-пицца"
-                  id="1"
-                  price={200}
-                  image="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Pizza-3007395.jpg/1200px-Pizza-3007395.jpg"
-                  query={inputValue}
+            <div className={inputContainer()}>
+               <MagnifyingGlass className={magnifyingGlass()} />
+               <input
+                  ref={inputRef}
+                  className={input()}
+                  type="text"
+                  placeholder="Pizza search..."
+                  value={inputValue}
+                  onChange={handleSearchInputChange}
                />
-            </ul>
+               {inputValue.length !== 0 && (
+                  <button
+                     className={removeButton()}
+                     type="button"
+                     onClick={clearInputValue}
+                  >
+                     <CrossIcon />
+                  </button>
+               )}
+            </div>
          </Dropdown>
-      </>
+      </ConfigProvider>
    );
 };

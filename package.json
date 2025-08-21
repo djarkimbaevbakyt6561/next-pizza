@@ -9,12 +9,19 @@
       "lint": "next lint --dir src"
    },
    "dependencies": {
+      "@ant-design/nextjs-registry": "^1.1.0",
+      "@ant-design/v5-patch-for-react-19": "^1.0.3",
+      "@reduxjs/toolkit": "^2.6.0",
+      "antd": "^5.27.0",
       "clsx": "^2.1.1",
       "next": "^15.1.5",
+      "nextjs-toploader": "^3.8.16",
       "nuqs": "^2.3.1",
       "react": "^19.0.0",
       "react-content-loader": "^7.0.2",
-      "react-dom": "^19.0.0"
+      "react-dom": "^19.0.0",
+      "react-redux": "^9.2.0",
+      "tailwind-scrollbar": "^3.1.0"
    },
    "devDependencies": {
       "@eslint/eslintrc": "^3.2.0",

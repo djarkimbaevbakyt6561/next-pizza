@@ -1,5 +1,5 @@
+import scrollbar from 'tailwind-scrollbar';
 import { withTV } from 'tailwind-variants/transformer';
-import type { Config } from 'tailwindcss';
 
 export default withTV({
    content: [
@@ -9,15 +9,25 @@ export default withTV({
    theme: {
       extend: {
          animation: {
-            fadeIn: 'fadeIn 0.16s ease-in-out',
+            zoomIn: 'zoomIn 0.16s ease-in-out',
+            fadeIn: 'fadeIn 0.16s ease-in',
          },
          keyframes: {
-            fadeIn: {
+            zoomIn: {
                '0%': { transform: 'scale(0.98)' },
                '100%': { transform: 'scale(1)' },
+            },
+            fadeIn: {
+               '0%': { opacity: '0.5' },
+               '100%': { opacity: '1' },
             },
          },
       },
    },
-   plugins: [],
-}) satisfies Config;
+   plugins: [
+      scrollbar({
+         nocompatible: true,
+         preferredStrategy: 'pseudoelements',
+      }),
+   ],
+});
