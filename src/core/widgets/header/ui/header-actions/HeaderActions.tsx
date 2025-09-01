@@ -1,15 +1,29 @@
 'use client';
 import { Button } from 'antd';
 import { tv } from 'tailwind-variants';
+import {
+   CartDrawer,
+   getCartIsOpen,
+   handleOnCloseDrawer,
+   handleOnOpenDrawer,
+} from 'features/cart-drawer';
 import { Search } from 'features/search';
-import { AvatarIcon, BasketIcon } from 'shared/assets';
+import {
+   getCartPizzas,
+   getCartPizzasCount,
+   getCartTotalSum,
+} from 'entities/cart';
+import { BasketIcon } from 'shared/assets';
+import { useAppDispatch, useAppSelector } from 'shared/store/redux';
 
-const actions = tv(
+const headerActions = tv(
    {
       slots: {
-         searchWrapper: ' flex justify-end',
-         search: 'z-30 max-w-[47.75rem] flex-1',
-         signInButton: 'justify-self-end ',
+         searchWrapper: 'flex justify-start',
+         search: 'z-30 max-w-[40.3125rem] flex-1',
+         basketButton: 'justify-self-end',
+         priceText: 'border-r pr-3 border-white/25',
+         basketContent: 'flex items-center gap-1',
       },
       variants: {
          size: {
@@ -26,29 +40,51 @@ const actions = tv(
 );
 
 export const HeaderActions = () => {
-   const { searchWrapper, search, signInButton } = actions({
-      size: {
-         initial: 'initial',
-         md: 'medium',
-      },
-   });
+   const { searchWrapper, search, basketButton, priceText, basketContent } =
+      headerActions({
+         size: {
+            initial: 'initial',
+            md: 'medium',
+         },
+      });
+
+   const dispatch = useAppDispatch();
+   const open = useAppSelector(getCartIsOpen);
+   const cartPizzas = useAppSelector(getCartPizzas);
+   const cartPizzasCount = useAppSelector(getCartPizzasCount);
+   const totalSum = useAppSelector(getCartTotalSum);
+
+   const hasCartItems = cartPizzasCount !== 0;
+
    return (
       <>
          <div className={searchWrapper()}>
-            <Search className={search()} />
+            <Search className={search()} cartPizzas={cartPizzas} />
          </div>
+
          <Button
             color="primary"
-            className={signInButton()}
-            variant="outlined"
-            onClick={() => {}}
-            icon={<AvatarIcon />}
+            variant={hasCartItems ? 'solid' : 'outlined'}
+            onClick={() => dispatch(handleOnOpenDrawer())}
+            className={basketButton()}
          >
-            Sign In
+            {hasCartItems ? (
+               <div className="flex gap-3">
+                  <span className={priceText()}>{totalSum} $</span>
+                  <span className={basketContent()}>
+                     <BasketIcon />
+                     {cartPizzasCount}
+                  </span>
+               </div>
+            ) : (
+               <BasketIcon />
+            )}
          </Button>
-         <Button color="primary" variant="outlined" onClick={() => {}}>
-            <BasketIcon />
-         </Button>
+
+         <CartDrawer
+            onClose={() => dispatch(handleOnCloseDrawer())}
+            open={open}
+         />
       </>
    );
 };

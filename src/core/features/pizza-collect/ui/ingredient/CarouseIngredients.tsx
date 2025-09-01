@@ -16,13 +16,16 @@ const carouselIngredients = tv(
             initial: {
                carousel: 'mx-auto max-w-[25rem]',
             },
+            large: {
+               carousel: 'max-w-[23rem]',
+            },
             xLarge: {
                carousel: 'mx-0 max-w-[35rem]',
             },
          },
       },
    },
-   { responsiveVariants: ['xl'] },
+   { responsiveVariants: ['lg', 'xl'] },
 );
 
 const sampleArrow = tv({
@@ -49,12 +52,12 @@ export const CarouseIngredients = ({
    selectedIngredients,
    ingredients,
 }: {
-   selectedIngredients: Record<number, number | undefined>;
+   selectedIngredients: Record<string, number | undefined>;
    ingredients: IngredientType[];
 }) => {
    const dispatch = useAppDispatch();
    const { carousel, ingredientWrapper, ingredientCard } = carouselIngredients({
-      responsive: { initial: 'initial', xl: 'xLarge' },
+      responsive: { initial: 'initial', xl: 'xLarge', lg: 'large' },
    });
 
    return (
@@ -93,11 +96,11 @@ export const CarouseIngredients = ({
             <div className={ingredientWrapper()} key={item.id}>
                <IngredientCard
                   className={ingredientCard()}
-                  isSelected={!!selectedIngredients[item.id]}
+                  isSelected={!!selectedIngredients[item.name]}
                   onClick={() =>
                      dispatch(
                         toggleIngredient({
-                           id: item.id,
+                           name: item.name,
                            price: item.price,
                         }),
                      )

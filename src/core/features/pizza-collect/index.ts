@@ -1,6 +1,4 @@
 export { PizzaCollect } from './ui/PizzaCollect';
-export { pizza } from './model/consts';
-export type { PizzaType } from './model/types';
 
 export {
    getPizzaCollectState as selectPizzaCollectState,
@@ -11,5 +9,6 @@ export {
    selectVariant,
    toggleIngredient,
    resetSelection,
+   type PizzaCollectState,
 } from './model/redux/slice';
 export { pizzaCollectReducer } from './model/redux/slice';

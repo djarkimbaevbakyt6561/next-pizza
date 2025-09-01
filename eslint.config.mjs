@@ -35,7 +35,7 @@ const eslintConfig = [
          ],
          'import/no-internal-modules': 'off',
          'import/newline-after-import': 'error',
-         'react-hooks/exhaustive-deps': 'warn',
+         'react-hooks/exhaustive-deps': 'off',
          'react-hooks/rules-of-hooks': 'warn',
          'react/jsx-props-no-spreading': 'off',
          'react/react-in-jsx-scope': 'off',

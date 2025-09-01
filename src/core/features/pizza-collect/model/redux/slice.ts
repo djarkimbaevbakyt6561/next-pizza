@@ -1,12 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { PizzaSize, PizzaVariant } from 'entities/pizza';
-import { PizzaSizeType } from '../types';
+import { IngredientType } from 'entities/ingredient';
+import { PizzaSizeType } from 'entities/pizza';
+import { PizzaSize, PizzaVariant } from 'shared/enums';
 
-interface PizzaCollectState {
+export interface PizzaCollectState {
    pizzaSize: PizzaSizeType;
    pizzaVariant: PizzaVariant;
+   ingredients: IngredientType[];
    selectedItemIndex: number;
-   selectedIngredients: Record<number, number | undefined>;
+   selectedIngredients: Record<string, number | undefined>;
 }
 
 const initialState: PizzaCollectState = {
@@ -14,9 +16,9 @@ const initialState: PizzaCollectState = {
       size: PizzaSize.Medium,
       imageUrl: '',
       weight: 0,
-      ingredients: [],
-      defaultPrice: 0,
+      price: 0,
    },
+   ingredients: [],
    pizzaVariant: PizzaVariant.Traditional,
    selectedItemIndex: 1,
    selectedIngredients: {},
@@ -28,7 +30,10 @@ const pizzaCollectSlice = createSlice({
    reducers: {
       selectSize: (
          state,
-         action: PayloadAction<{ pizzaSize: PizzaSizeType; index: number }>,
+         action: PayloadAction<{
+            pizzaSize: PizzaSizeType;
+            index: number;
+         }>,
       ) => {
          state.pizzaSize = action.payload.pizzaSize;
          state.selectedItemIndex = action.payload.index;
@@ -37,15 +42,18 @@ const pizzaCollectSlice = createSlice({
             state.pizzaVariant = PizzaVariant.Traditional;
          }
       },
+      setIngredients: (state, action: PayloadAction<IngredientType[]>) => {
+         state.ingredients = action.payload;
+      },
       selectVariant: (state, action: PayloadAction<PizzaVariant>) => {
          state.pizzaVariant = action.payload;
       },
       toggleIngredient: (
          state,
-         action: PayloadAction<{ id: number; price: number }>,
+         action: PayloadAction<{ name: string; price: number }>,
       ) => {
-         const { id, price } = action.payload;
-         state.selectedIngredients[id] = state.selectedIngredients[id]
+         const { name, price } = action.payload;
+         state.selectedIngredients[name] = state.selectedIngredients[name]
             ? undefined
             : price;
       },
@@ -53,6 +61,11 @@ const pizzaCollectSlice = createSlice({
    },
 });
 
-export const { selectSize, selectVariant, toggleIngredient, resetSelection } =
-   pizzaCollectSlice.actions;
+export const {
+   selectSize,
+   setIngredients,
+   selectVariant,
+   toggleIngredient,
+   resetSelection,
+} = pizzaCollectSlice.actions;
 export const pizzaCollectReducer = pizzaCollectSlice.reducer;

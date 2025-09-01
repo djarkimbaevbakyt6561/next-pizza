@@ -1,12 +1,12 @@
 import clsx from 'clsx';
 import { tv } from 'tailwind-variants';
-import { PizzaSize, PizzaVariant } from 'entities/pizza';
+import { PizzaType } from 'entities/pizza';
+import { PizzaSize, PizzaVariant } from 'shared/enums';
 import { useAppDispatch, useAppSelector } from 'shared/store/redux';
 import { Tabs } from 'shared/ui';
 import { pizzaSizeTabs, pizzaVariantTabs } from '../../model/consts';
 import { getPizzaCollectState } from '../../model/redux/selectors';
 import { selectSize, selectVariant } from '../../model/redux/slice';
-import { PizzaType } from '../../model/types';
 
 const tabButton = tv({
    base: 'w-full py-2 text-sm transition-all duration-300',
@@ -79,7 +79,7 @@ export const TabsContainer = ({ pizza }: { pizza: PizzaType }) => {
                      type="button"
                      className={tabButton()}
                      onClick={() => {
-                        const updatedSize = pizza.sizes.find(
+                        const updatedSize = pizza.sizes!.find(
                            size => size.size === el.value,
                         );
 

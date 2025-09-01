@@ -1,4 +1,4 @@
-import { PizzaCollectWidget } from 'widgets/pizza-collect-widget';
+import { PizzaDetailsModalLayout } from 'widgets/pizza-details-modal';
 
 export default async function Page({
    params,
@@ -6,5 +6,5 @@ export default async function Page({
    params: Promise<{ id: string }>;
 }) {
    const pizzaId = (await params).id;
-   return <PizzaCollectWidget pizzaId={Number(pizzaId)} />;
+   return <PizzaDetailsModalLayout pizzaId={Number(pizzaId)} />;
 }

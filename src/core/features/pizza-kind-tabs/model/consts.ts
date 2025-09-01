@@ -9,8 +9,6 @@ export const pizzaKindTypes: PizzaKindType[] = [
    { id: 6, title: 'Chicken', value: 'chicken' },
    { id: 7, title: 'Vegetable', value: 'vegetable' },
    { id: 8, title: 'Cheese', value: 'cheese' },
-   { id: 9, title: 'Kebab', value: 'kebab' },
-   { id: 10, title: 'Sushi', value: 'sushi' },
 ];
 
 export const breakpoints = [

@@ -1,1 +1,1 @@
-export { PizzaCatalog } from './ui/Catalog';
+export { PizzaCatalogLayout as PizzaCatalog } from './ui/CatalogLayout';

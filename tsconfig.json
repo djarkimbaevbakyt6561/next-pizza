@@ -19,6 +19,7 @@
          }
       ],
       "paths": {
+         "core/app/*": ["./src/core/app/*"],
          "entities/*": ["./src/core/entities/*"],
          "features/*": ["./src/core/features/*"],
          "pages/*": ["./src/core/pages/*"],

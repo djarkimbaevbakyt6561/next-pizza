@@ -1,5 +1,4 @@
 import clsx from 'clsx';
-import { FC } from 'react';
 import ContentLoader from 'react-content-loader';
 import { tv } from 'tailwind-variants';
 
@@ -20,9 +19,7 @@ interface TabsFilterSkeletonProps {
    className?: string;
 }
 
-export const TabsFilterSkeleton: FC<TabsFilterSkeletonProps> = ({
-   className,
-}) => {
+export const TabsFilterSkeleton = ({ className }: TabsFilterSkeletonProps) => {
    return (
       <ContentLoader
          speed={3}

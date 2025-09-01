@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { Nunito } from 'next/font/google';
 import NextTopLoader from 'nextjs-toploader';
-import { App } from '../core/app/App';
+import { App } from 'core/app/App';
 import '@ant-design/v5-patch-for-react-19';
 
 const nunito = Nunito({

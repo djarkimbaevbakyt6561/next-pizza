@@ -2,10 +2,11 @@
 import clsx from 'clsx';
 import { useEffect } from 'react';
 import { tv, VariantProps } from 'tailwind-variants';
+import { useGetIngredientsQuery } from 'entities/ingredient/api';
+import { pizzaSizeSmText, PizzaType } from 'entities/pizza';
 import { useAppDispatch, useAppSelector } from 'shared/store/redux';
 import { getPizzaCollectState } from '../model/redux/selectors';
-import { selectSize } from '../model/redux/slice';
-import { PizzaType } from '../model/types';
+import { setIngredients } from '../model/redux/slice';
 import { CarouseIngredients } from './ingredient/CarouseIngredients';
 import { IngredientsList } from './ingredient/IngredientsList';
 import { TabsContainer } from './tabs/TabsContainer';
@@ -51,19 +52,21 @@ export const PizzaCollect = ({ className, pizza, variant }: Props) => {
       variant,
    });
 
-   const { pizzaSize, pizzaVariant, selectedIngredients } =
+   const { ingredients, pizzaSize, pizzaVariant, selectedIngredients } =
       useAppSelector(getPizzaCollectState);
    const dispatch = useAppDispatch();
+   const { data: ingredientsFromDB } = useGetIngredientsQuery();
 
    useEffect(() => {
-      dispatch(selectSize({ pizzaSize: pizza.sizes[1], index: 1 }));
-   }, [pizza, dispatch]);
+      dispatch(setIngredients(ingredientsFromDB ?? []));
+   }, [ingredientsFromDB]);
 
    return (
       <div className={clsx(base(), className)}>
          <h2 className={title()}>{pizza.title}</h2>
          <p className={description()}>
-            {pizzaSize.size}, {pizzaVariant} dough, {pizzaSize.weight} gr
+            {pizzaSizeSmText[pizzaSize.size]}, {pizzaVariant} dough,{' '}
+            {pizzaSize.weight} gr
          </p>
 
          {/* Tabs */}
@@ -72,16 +75,20 @@ export const PizzaCollect = ({ className, pizza, variant }: Props) => {
          {/* Ingredients */}
          <div>
             <h3 className={ingredientsTitle()}>Add to taste</h3>
-            {variant === 'pizzaDetails' ? (
-               <CarouseIngredients
-                  selectedIngredients={selectedIngredients}
-                  ingredients={pizzaSize.ingredients}
-               />
+            {ingredients.length ? (
+               variant === 'pizzaDetails' ? (
+                  <CarouseIngredients
+                     selectedIngredients={selectedIngredients}
+                     ingredients={ingredients}
+                  />
+               ) : (
+                  <IngredientsList
+                     selectedIngredients={selectedIngredients}
+                     ingredients={ingredients}
+                  />
+               )
             ) : (
-               <IngredientsList
-                  selectedIngredients={selectedIngredients}
-                  ingredients={pizzaSize.ingredients}
-               />
+               <h1>Loading</h1>
             )}
          </div>
       </div>

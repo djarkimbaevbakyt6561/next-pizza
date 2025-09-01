@@ -1,13 +1,16 @@
 'use client';
 import { ConfigProvider, Dropdown } from 'antd';
-import { ChangeEvent, FC, useRef, useState } from 'react';
+import { ChangeEvent, useRef, useState } from 'react';
 import { tv } from 'tailwind-variants';
+import { PizzaCartItemType } from 'entities/cart';
+import { useGetSearchedPizzasQuery } from 'entities/pizza/api';
 import { CrossIcon } from 'shared/assets';
 import MagnifyingGlass from '../assets/magnifying-glass.svg';
-import { SearchItem } from './search-item/SearchItem';
+import { menuItems } from './model/consts';
 
 interface SearchProps {
    className: string;
+   cartPizzas: PizzaCartItemType[];
 }
 
 const search = tv({
@@ -20,7 +23,7 @@ const search = tv({
    },
 });
 
-export const Search: FC<SearchProps> = ({ className }) => {
+export const Search = ({ className, cartPizzas }: SearchProps) => {
    const { inputContainer, input, magnifyingGlass, removeButton, backdrop } =
       search();
    const [inputValue, setInputValue] = useState('');
@@ -34,20 +37,8 @@ export const Search: FC<SearchProps> = ({ className }) => {
       setInputValue('');
       inputRef.current?.focus();
    };
-   const menu = [
-      {
-         key: '1',
-         label: (
-            <SearchItem
-               title="Cheeseburger pizza"
-               id="1"
-               price={5}
-               image="https://media.dodostatic.net/image/r:584x584/11ee7d6025e8bf7c96ffc8c8aa80fe57.avif"
-               query={inputValue}
-            />
-         ),
-      },
-   ];
+   const { data: searchedPizzas, isLoading } =
+      useGetSearchedPizzasQuery(inputValue);
 
    return (
       <ConfigProvider
@@ -57,6 +48,9 @@ export const Search: FC<SearchProps> = ({ className }) => {
                   paddingBlock: 0,
                   controlPaddingHorizontal: 0,
                },
+               Button: {
+                  controlHeight: 40,
+               },
             },
          }}
       >
@@ -64,7 +58,15 @@ export const Search: FC<SearchProps> = ({ className }) => {
          <Dropdown
             className={className}
             open={inputValue.length !== 0}
-            menu={{ items: menu }}
+            menu={{
+               items: menuItems({
+                  cartPizzas,
+                  isLoading,
+                  searchedPizzas,
+                  inputValue,
+                  clearInputValue,
+               }),
+            }}
          >
             <div className={inputContainer()}>
                <MagnifyingGlass className={magnifyingGlass()} />

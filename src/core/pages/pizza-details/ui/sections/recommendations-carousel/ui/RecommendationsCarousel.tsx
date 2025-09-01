@@ -1,6 +1,6 @@
 import { Carousel, CarouselProps } from 'antd';
 import { tv } from 'tailwind-variants';
-import { PizzaCard, PizzaCardType } from 'entities/pizza';
+import { PizzaCard, PizzaCardSkeleton, PizzaType } from 'entities/pizza';
 
 const recommendationsCarousel = tv(
    {
@@ -44,47 +44,56 @@ function SampleArrow({ className, style, onClick }: ArrowProps) {
 export const RecommendationsCarousel = ({
    pizzas,
 }: {
-   pizzas: PizzaCardType[];
+   pizzas: PizzaType[] | undefined;
 }) => {
    const { carousel } = recommendationsCarousel();
+   const loadingArray = Array.from({ length: 4 }, (_, i) => i);
    return (
-      <Carousel
-         arrows
-         className={carousel()}
-         nextArrow={<SampleArrow />}
-         prevArrow={<SampleArrow />}
-         infinite
-         slidesToShow={4}
-         slidesToScroll={4}
-         responsive={[
-            {
-               breakpoint: 1280,
-               settings: {
-                  slidesToShow: 3,
-                  slidesToScroll: 3,
+      <section>
+         <Carousel
+            arrows
+            className={carousel()}
+            nextArrow={<SampleArrow />}
+            prevArrow={<SampleArrow />}
+            infinite
+            slidesToShow={4}
+            slidesToScroll={4}
+            responsive={[
+               {
+                  breakpoint: 1280,
+                  settings: {
+                     slidesToShow: 3,
+                     slidesToScroll: 3,
+                  },
                },
-            },
-            {
-               breakpoint: 592,
-               settings: {
-                  slidesToShow: 3,
-                  slidesToScroll: 3,
+               {
+                  breakpoint: 1024,
+                  settings: {
+                     slidesToShow: 2,
+                     slidesToScroll: 2,
+                  },
                },
-            },
-            {
-               breakpoint: 410,
-               settings: {
-                  slidesToShow: 2,
-                  slidesToScroll: 2,
+               {
+                  breakpoint: 666,
+                  settings: {
+                     slidesToShow: 1,
+                     slidesToScroll: 1,
+                  },
                },
-            },
-         ]}
-      >
-         {pizzas.map(el => {
-            return (
-               <PizzaCard className="block mx-auto" key={el.id} pizza={el} />
-            );
-         })}
-      </Carousel>
+            ]}
+         >
+            {pizzas
+               ? pizzas.map(el => {
+                    return (
+                       <PizzaCard
+                          className="block mx-auto h-[27.3125rem]"
+                          key={el.id}
+                          pizza={el}
+                       />
+                    );
+                 })
+               : loadingArray.map(el => <PizzaCardSkeleton key={el} />)}
+         </Carousel>
+      </section>
    );
 };

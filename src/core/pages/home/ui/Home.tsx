@@ -8,6 +8,7 @@ import { PizzaFilterLayout } from './sections/filter';
 const home = tv(
    {
       slots: {
+         mainContainer: '_container',
          title: 'text-4xl font-bold  col-start-1 col-end-4',
          container: 'grid',
          tabsFilter: '',
@@ -18,7 +19,8 @@ const home = tv(
       variants: {
          size: {
             initial: {
-               title: 'mt-4 mb-2 text-2xl',
+               mainContainer: 'py-4',
+               title: 'mb-2 text-2xl',
                container: 'gap-4 grid-cols-[auto_auto]',
                tabsFilter: 'col-start-1 col-end-3',
                sortSelect: 'justify-self-start',
@@ -26,15 +28,17 @@ const home = tv(
                pizzaFilter: 'justify-self-end',
             },
             medium: {
+               mainContainer: 'py-6',
                container: 'grid-cols-[240px_auto_auto] gap-x-16 gap-y-8',
-               title: 'mt-6 mb-3 text-3xl ',
+               title: 'mb-3 text-3xl ',
                sortSelect: 'justify-self-end',
                tabsFilter: 'justify-self-start col-start-1 col-end-3',
                catalog: 'col-start-2 col-end-4',
                pizzaFilter: '',
             },
             large: {
-               title: 'mt-9 mb-6 text-4xl',
+               mainContainer: 'py-10',
+               title: 'mb-6 text-4xl',
             },
          },
       },
@@ -45,17 +49,24 @@ const home = tv(
 );
 
 export const Home = () => {
-   const { title, container, pizzaFilter, tabsFilter, sortSelect, catalog } =
-      home({
-         size: {
-            initial: 'initial',
-            md: 'medium',
-            lg: 'large',
-         },
-      });
+   const {
+      mainContainer,
+      title,
+      container,
+      pizzaFilter,
+      tabsFilter,
+      sortSelect,
+      catalog,
+   } = home({
+      size: {
+         initial: 'initial',
+         md: 'medium',
+         lg: 'large',
+      },
+   });
 
    return (
-      <div className="_container">
+      <div className={mainContainer()}>
          <h1 className={title()}>All pizzas</h1>
          <div className={container()}>
             <ConfigProvider

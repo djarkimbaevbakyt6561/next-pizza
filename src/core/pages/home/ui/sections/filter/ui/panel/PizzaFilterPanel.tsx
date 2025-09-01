@@ -1,13 +1,11 @@
 // PizzaFilterPanel.tsx
-import { FC } from 'react';
 import { Button } from 'antd';
 import clsx from 'clsx';
 import { tv } from 'tailwind-variants';
+import IngredientsFilter from 'features/filter/ingredient-checkbox-list';
+import PriceRange from 'features/filter/price-range';
 import { CrossIcon, FilterIcon } from 'shared/assets';
 import { AdditionalOptionsFilter } from '../additional-options/AdditionalOptionsFilter';
-import IngredientsFilter from 'features/filter/ingredient-checkbox-list';
-import PriceFilter from 'features/filter/price-range';
-import PizzaVariantFilter from 'features/filter/pizza-variant-radio-list';
 
 interface Props {
    className: string;
@@ -61,12 +59,12 @@ const sideBarClass = tv(
    { responsiveVariants: ['md'] },
 );
 
-export const PizzaFilterPanel: FC<Props> = ({
+export const PizzaFilterPanel = ({
    className,
    isOpen,
    onToggle,
    onApply,
-}) => {
+}: Props) => {
    const { container, title, filterButton } = pizzaFilterClass({
       size: { initial: 'initial', md: 'medium' },
    });
@@ -75,7 +73,7 @@ export const PizzaFilterPanel: FC<Props> = ({
    });
 
    return (
-      <div className={className}>
+      <aside className={className}>
          <Button
             className={filterButton()}
             color="primary"
@@ -94,8 +92,7 @@ export const PizzaFilterPanel: FC<Props> = ({
             </h2>
             <AdditionalOptionsFilter />
             <IngredientsFilter />
-            <PriceFilter />
-            <PizzaVariantFilter />
+            <PriceRange />
             <Button
                color="primary"
                variant="solid"
@@ -105,6 +102,6 @@ export const PizzaFilterPanel: FC<Props> = ({
                Apply
             </Button>
          </div>
-      </div>
+      </aside>
    );
 };

@@ -1,0 +1,11 @@
+.ant-drawer-content {
+   height: 100%;
+}
+.ant-drawer-body {
+   --ant-padding-lg: 0;
+   flex: 0 1 auto !important;
+   height: 100%;
+}
+.ant-drawer-footer {
+   flex: 1;
+}

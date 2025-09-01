@@ -1,4 +1,7 @@
+'use client';
+import clsx from 'clsx';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import React from 'react';
 import { tv } from 'tailwind-variants';
 import { pizzaLogo } from 'shared/assets';
@@ -34,26 +37,32 @@ const header = tv(
 );
 
 export const Header = () => {
+   const pathname = usePathname();
    const { container, logoImage, logoWrapper, title, subtitle } = header({
       size: {
          initial: 'initial',
          md: 'medium',
       },
    });
+   const isPathnameNotOrder = pathname !== '/order';
    return (
-      <div className={container()}>
-         <div className={logoWrapper()}>
-            <Image
-               className={logoImage()}
-               src={pizzaLogo}
-               alt="Pizza Logo Icon"
-            />
-            <div>
-               <h3 className={title()}>Next Pizza</h3>
-               <p className={subtitle()}>Next level pizza taste.</p>
+      <header
+         className={clsx('border-b', !isPathnameNotOrder && 'bg-neutral-100')}
+      >
+         <div className={container()}>
+            <div className={logoWrapper()}>
+               <Image
+                  className={logoImage()}
+                  src={pizzaLogo}
+                  alt="Pizza Logo Icon"
+               />
+               <div>
+                  <h3 className={title()}>Next Pizza</h3>
+                  <p className={subtitle()}>Next level pizza taste.</p>
+               </div>
             </div>
+            {isPathnameNotOrder && <HeaderActions />}
          </div>
-         <HeaderActions />
-      </div>
+      </header>
    );
 };

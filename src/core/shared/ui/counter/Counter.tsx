@@ -1,22 +1,51 @@
 import { Button, ConfigProvider } from 'antd';
-import React from 'react';
+import { tv, VariantProps } from 'tailwind-variants';
 
-interface CounterProps {
+const counter = tv({
+   slots: {
+      container: 'flex items-center ',
+      countText: 'font-bold',
+      button: '',
+   },
+   defaultVariants: {
+      size: 'normal',
+   },
+   variants: {
+      size: {
+         small: {
+            container: 'gap-2',
+            button: '!text-xl !w-[1.875rem] !h-[1.875rem]',
+            countText: 'text-base',
+         },
+         normal: {
+            container: 'gap-4',
+            button: '!w-10 !h-10',
+            countText: 'text-xl',
+         },
+      },
+   },
+});
+
+type CounterVariants = VariantProps<typeof counter>;
+
+interface CounterProps extends CounterVariants {
    count: number;
-   setCount: (num: number) => void;
+   disabled?: boolean;
+   incrementCount: () => void;
+   decrementCount: () => void;
 }
 
-export const Counter = ({ count, setCount }: CounterProps) => {
-   const incrementCount = () => {
-      setCount(count + 1);
-   };
+export const Counter = ({
+   count,
+   disabled = false,
+   incrementCount,
+   decrementCount,
+   size,
+}: CounterProps) => {
+   const { container, countText, button } = counter({ size });
 
-   const decrementCount = () => {
-      if (count === 0) return;
-      setCount(count - 1);
-   };
    return (
-      <div className="flex items-center gap-4">
+      <div className={container()}>
          <ConfigProvider
             theme={{
                components: {
@@ -28,16 +57,17 @@ export const Counter = ({ count, setCount }: CounterProps) => {
             }}
          >
             <Button
-               className="!w-10"
+               className={button()}
+               disabled={disabled}
                color="primary"
                variant="outlined"
                onClick={decrementCount}
             >
                -
             </Button>
-            <p className="text-xl font-bold">{count}</p>
+            <p className={countText()}>{count}</p>
             <Button
-               className="!w-10"
+               className={button()}
                color="primary"
                variant="outlined"
                onClick={incrementCount}

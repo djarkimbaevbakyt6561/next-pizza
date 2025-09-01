@@ -6,7 +6,5 @@ export const getTotalSum = (state: RootState) => {
          (sum, price) => (sum || 0) + (price || 0),
          0,
       ) || 0;
-   return (
-      state.pizzaCollect.pizzaSize.defaultPrice + totalSumSelectedIngredients
-   );
+   return state.pizzaCollect.pizzaSize.price + totalSumSelectedIngredients;
 };

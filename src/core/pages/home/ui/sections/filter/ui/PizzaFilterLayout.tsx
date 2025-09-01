@@ -12,12 +12,8 @@ import {
    setFilterSelectedIngredients,
    getFilterSelectedIngredients,
 } from 'features/filter/ingredient-checkbox-list';
-import {
-   setFilterPizzaVariant,
-   getFilterPizzaVariant,
-} from 'features/filter/pizza-variant-radio-list';
 import { setFilterPrice, getFilterPrice } from 'features/filter/price-range';
-import { PizzaVariant } from 'entities/pizza';
+import { PizzaVariant } from 'shared/enums';
 import { useAppDispatch, useAppSelector } from 'shared/store/redux';
 import { getPizzaFilterState } from '../model/redux/selectors';
 import { filterActions } from '../model/redux/slice';
@@ -27,7 +23,6 @@ export const PizzaFilterLayout = ({ className }: { className: string }) => {
    const dispatch = useAppDispatch();
    const pizzaFilter = useAppSelector(getPizzaFilterState);
    const selectedIngredients = useAppSelector(getFilterSelectedIngredients);
-   const pizzaVariant = useAppSelector(getFilterPizzaVariant);
    const price = useAppSelector(getFilterPrice);
 
    const [isOpen, setIsOpen] = useState(false);
@@ -51,7 +46,6 @@ export const PizzaFilterLayout = ({ className }: { className: string }) => {
          ingredients: selectedIngredients,
          from: price.from,
          to: price.to,
-         doughType: pizzaVariant,
       });
       setIsOpen(false);
    };
@@ -62,11 +56,6 @@ export const PizzaFilterLayout = ({ className }: { className: string }) => {
             collect: pizzaFilterSearchParams.collect,
             novelity: pizzaFilterSearchParams.novelity,
          }),
-      );
-      dispatch(
-         setFilterPizzaVariant(
-            pizzaFilterSearchParams.doughType || PizzaVariant.Thin,
-         ),
       );
       dispatch(
          setFilterPrice({

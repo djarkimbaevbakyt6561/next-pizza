@@ -1,32 +1,11 @@
 'use client';
 import { Dropdown } from 'antd';
 import clsx from 'clsx';
-import { FC, useState } from 'react';
+import { useQueryState } from 'nuqs';
+import { useState } from 'react';
 import { tv } from 'tailwind-variants';
 import { SortIcon } from 'shared/assets';
-
-const sortList = [
-   {
-      id: 1,
-      title: 'By rating',
-      value: 'rating',
-   },
-   {
-      id: 2,
-      title: 'Cheapest first',
-      value: 'cheapest',
-   },
-   {
-      id: 3,
-      title: 'Expensive first',
-      value: 'expensive',
-   },
-   {
-      id: 4,
-      title: 'By popularity',
-      value: 'popularity',
-   },
-];
+import { sortList } from '../model/types';
 
 const sortSelect = tv(
    {
@@ -59,7 +38,7 @@ interface PizzaSortSelectProps {
    className?: string;
 }
 
-export const PizzaSortSelect: FC<PizzaSortSelectProps> = ({ className }) => {
+export const PizzaSortSelect = ({ className }: PizzaSortSelectProps) => {
    const { dropdown, dropdownItem, selectedDropdownItem, button, buttonSpan } =
       sortSelect({
          size: {
@@ -68,7 +47,9 @@ export const PizzaSortSelect: FC<PizzaSortSelectProps> = ({ className }) => {
          },
       });
    const [isOpen, setIsOpen] = useState(false);
-   const [selectedSort, setSelectedSort] = useState('rating');
+   const [selectedSort, setSelectedSort] = useQueryState('sort', {
+      defaultValue: 'none',
+   });
 
    const toggleSortMenuHandler = () => {
       setIsOpen(prev => !prev);

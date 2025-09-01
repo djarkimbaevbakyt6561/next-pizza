@@ -1,7 +1,7 @@
 'use client';
 import { Dropdown } from 'antd';
 import clsx from 'clsx';
-import { FC, useState } from 'react';
+import { useState } from 'react';
 import { tv } from 'tailwind-variants';
 import { PizzaKindType } from 'entities/pizza';
 
@@ -21,12 +21,12 @@ const moreSelect = tv({
    },
 });
 
-export const MoreSelect: FC<MoreSelectProps> = ({
+export const MoreSelect = ({
    className,
    selectedItemIndex,
    onSelect,
    items,
-}) => {
+}: MoreSelectProps) => {
    const { dropdownItem, selectedDropdownItem } = moreSelect();
    const [isOpen, setIsOpen] = useState(false);
 

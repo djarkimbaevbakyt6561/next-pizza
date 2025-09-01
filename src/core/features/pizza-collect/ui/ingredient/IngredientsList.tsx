@@ -22,10 +22,11 @@ export const IngredientsList = ({
    selectedIngredients,
    ingredients,
 }: {
-   selectedIngredients: Record<number, number | undefined>;
+   selectedIngredients: Record<string, number | undefined>;
    ingredients: IngredientType[];
 }) => {
    const dispatch = useAppDispatch();
+
    return (
       <ul
          className={ingredientsList({
@@ -35,9 +36,9 @@ export const IngredientsList = ({
          {ingredients.map(el => (
             <IngredientCard
                key={el.id}
-               isSelected={!!selectedIngredients[el.id]}
+               isSelected={!!selectedIngredients[el.name]}
                onClick={() =>
-                  dispatch(toggleIngredient({ id: el.id, price: el.price }))
+                  dispatch(toggleIngredient({ name: el.name, price: el.price }))
                }
                ingredient={el}
             />

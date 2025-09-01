@@ -2,8 +2,9 @@
 import { AntdRegistry } from '@ant-design/nextjs-registry';
 import { ConfigProvider } from 'antd';
 import { NuqsAdapter } from 'nuqs/adapters/next';
-import { FC, ReactNode } from 'react';
+import { ReactNode } from 'react';
 import { Provider } from 'react-redux';
+import { CartDrawerProvider } from './providers/CartDrawerProvider';
 import store from './store';
 import './styles/globals.css';
 
@@ -11,7 +12,7 @@ interface AppProps {
    children: ReactNode;
 }
 
-export const App: FC<AppProps> = ({ children }) => {
+export const App = ({ children }: AppProps) => {
    return (
       <Provider store={store}>
          <AntdRegistry>
@@ -30,11 +31,17 @@ export const App: FC<AppProps> = ({ children }) => {
                            borderRadiusSM: 6,
                            paddingXS: 12,
                         },
+                        Input: {
+                           fontSize: 16,
+                           paddingBlock: 10,
+                           borderRadius: 10,
+                        },
                         Button: {
                            controlHeight: 48,
                            fontSize: 16,
                            fontWeight: 600,
                            borderRadius: 12,
+                           colorBgContainerDisabled: 'none',
                         },
                         Radio: {
                            radioSize: 22,
@@ -43,7 +50,6 @@ export const App: FC<AppProps> = ({ children }) => {
                            dotSize: 8,
                         },
                         Modal: {
-                           contentPadding: 0,
                            contentBg: 'none',
                            boxShadow: 'none',
                         },
@@ -52,11 +58,20 @@ export const App: FC<AppProps> = ({ children }) => {
                            colorLinkHover: 'black',
                            colorLinkActive: 'black',
                         },
+                        Drawer: {
+                           colorBgElevated: 'rgba(244, 241, 238, 1)',
+                           paddingLG: 20,
+                           padding: 20,
+                           fontSizeLG: 18,
+                           footerPaddingBlock: 0,
+                           footerPaddingInline: 0,
+                        },
                      },
                   }}
                >
                   {children}
                </ConfigProvider>
+               <CartDrawerProvider />
             </NuqsAdapter>
          </AntdRegistry>
       </Provider>

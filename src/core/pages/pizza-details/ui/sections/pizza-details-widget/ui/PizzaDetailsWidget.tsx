@@ -1,13 +1,15 @@
 import { Button } from 'antd';
 import Image from 'next/image';
+import { useEffect } from 'react';
 import { tv } from 'tailwind-variants';
 import {
    PizzaCollect,
    selectPizzaCollectState,
+   selectSize,
    selectTotalSum,
 } from 'features/pizza-collect';
-import { PizzaType } from 'features/pizza-collect';
-import { useAppSelector } from 'shared/store/redux';
+import { PizzaType } from 'entities/pizza';
+import { useAppDispatch, useAppSelector } from 'shared/store/redux';
 
 const pizzaDetailsWidget = tv(
    {
@@ -31,42 +33,61 @@ const pizzaDetailsWidget = tv(
                image: 'p-9 max-h-[25rem]',
             },
             large: {
-               content: 'mt-10 gap-11 flex-row ',
+               content: 'mt-10 gap-8 flex-row ',
                image: 'h-auto max-h-none max-w-[35.625rem]',
+            },
+            xLarge: {
+               content: 'gap-11',
             },
          },
       },
    },
 
    {
-      responsiveVariants: ['md', 'lg'],
+      responsiveVariants: ['md', 'lg', 'xl'],
    },
 );
 
 export const PizzaDetailsWidget = ({ pizza }: { pizza: PizzaType }) => {
    const { content, image, detailsContainer, addButton } = pizzaDetailsWidget({
-      responsive: { initial: 'initial', md: 'medium', lg: 'large' },
+      responsive: {
+         initial: 'initial',
+         md: 'medium',
+         lg: 'large',
+         xl: 'xLarge',
+      },
    });
-
    const totalSum = useAppSelector(selectTotalSum);
    const { pizzaSize } = useAppSelector(selectPizzaCollectState);
+   const dispatch = useAppDispatch();
+
+   useEffect(() => {
+      dispatch(
+         selectSize({
+            pizzaSize: pizza.sizes![1],
+            index: 1,
+         }),
+      );
+   }, [pizza, dispatch]);
    return (
-      <div className={content()}>
-         {pizzaSize.imageUrl && (
-            <Image
-               className={image()}
-               src={pizzaSize.imageUrl}
-               alt={pizza.title}
-               width={500}
-               height={500}
-            />
-         )}
-         <div className={detailsContainer()}>
-            <PizzaCollect pizza={pizza} variant="pizzaDetails" />
-            <Button color="primary" variant="solid" className={addButton()}>
-               Add to cart for {totalSum} $
-            </Button>
-         </div>
-      </div>
+      <section className={content()}>
+         <>
+            {pizzaSize.imageUrl && (
+               <Image
+                  className={image()}
+                  src={pizzaSize.imageUrl}
+                  alt={pizza.title || 'Pizza image'}
+                  width={500}
+                  height={500}
+               />
+            )}
+            <div className={detailsContainer()}>
+               <PizzaCollect pizza={pizza} variant="pizzaDetails" />
+               <Button color="primary" variant="solid" className={addButton()}>
+                  Add to cart for {totalSum} $
+               </Button>
+            </div>
+         </>
+      </section>
    );
 };

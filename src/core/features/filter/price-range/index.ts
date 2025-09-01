@@ -1,7 +1,7 @@
-import { PriceFilter } from './ui/PriceRange';
+import { PriceRange } from './ui/PriceRange';
 
 export { priceRangeReducer } from './model/redux/slice';
 export { getFilterPrice } from './model/redux/selectors';
 export { setFilterPrice } from './model/redux/slice';
 
-export default PriceFilter;
+export default PriceRange;

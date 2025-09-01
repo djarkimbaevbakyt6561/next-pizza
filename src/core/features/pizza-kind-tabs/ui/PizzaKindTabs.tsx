@@ -51,7 +51,7 @@ export const PizzaKindTabs = ({ className }: { className: string }) => {
    const [isLoading, setIsLoading] = useState(true);
 
    const [selectedItemIndex, setSelectedItemIndex] = useState(0);
-   const [selectedTab, setSelectedTab] = useQueryState('type', {
+   const [selectedTab, setSelectedTab] = useQueryState('kind', {
       defaultValue: 'all',
    });
    const minSelectedItemIndex = Math.min(selectedItemIndex, visibleTabs.length);

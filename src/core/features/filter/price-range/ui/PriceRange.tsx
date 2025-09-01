@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from 'shared/store/redux';
 import { getFilterPrice } from '../model/redux/selectors';
 import { setFilterPrice } from '../model/redux/slice';
 
-const priceFilter = tv({
+const priceRange = tv({
    slots: {
       container: 'flex flex-col gap-4',
       inputsGroupContainer: 'grid grid-cols-2 gap-4',
@@ -16,7 +16,7 @@ const priceFilter = tv({
    },
 });
 
-export const PriceFilter = () => {
+export const PriceRange = () => {
    const {
       container,
       title,
@@ -24,7 +24,7 @@ export const PriceFilter = () => {
       inputsGroupContainer,
       inputContainer,
       label,
-   } = priceFilter();
+   } = priceRange();
    const price = useAppSelector(getFilterPrice);
    const dispatch = useAppDispatch();
 

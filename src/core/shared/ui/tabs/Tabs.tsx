@@ -1,6 +1,6 @@
 'use client';
 import clsx from 'clsx';
-import { FC, ReactNode, useRef } from 'react';
+import { ReactNode, useRef } from 'react';
 import { tv } from 'tailwind-variants';
 import { useGliderPosition } from 'shared/hooks';
 
@@ -18,12 +18,12 @@ const tabs = tv({
    },
 });
 
-export const Tabs: FC<TabsProps> = ({
+export const Tabs = ({
    className,
    selectedItemIndex,
    gliderClassName,
    children,
-}) => {
+}: TabsProps) => {
    const { base, glider } = tabs();
    const tabsRef = useRef<HTMLUListElement>(null);
 

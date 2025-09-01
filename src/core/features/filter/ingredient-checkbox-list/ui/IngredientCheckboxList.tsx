@@ -2,88 +2,10 @@
 import { Checkbox } from 'antd';
 import { useState } from 'react';
 import { tv } from 'tailwind-variants';
-import { IngredientSelectType } from 'entities/ingredient';
 import { useAppDispatch, useAppSelector } from 'shared/store/redux';
+import { ingredients } from '../model/consts';
 import { getFilterSelectedIngredients } from '../model/redux/selectors';
 import { setFilterSelectedIngredients } from '../model/redux/slice';
-
-const ingredients: IngredientSelectType[] = [
-   {
-      id: 1,
-      name: 'Cheese sauce',
-      value: 'cheese-sauce',
-   },
-   {
-      id: 2,
-      name: 'Mozzarella',
-      value: 'mozzarella',
-   },
-   {
-      id: 3,
-      name: 'Garlic',
-      value: 'garlic',
-   },
-
-   {
-      id: 4,
-      name: 'Pickles',
-      value: 'pickles',
-   },
-   {
-      id: 5,
-      name: 'Red onion',
-      value: 'red-onion',
-   },
-
-   {
-      id: 6,
-      name: 'Red onion',
-      value: 'red-onion',
-   },
-
-   {
-      id: 7,
-      name: 'Red onion',
-      value: 'red-onion',
-   },
-   {
-      id: 8,
-      name: 'Red onion',
-      value: 'red-onion',
-   },
-   {
-      id: 9,
-      name: 'Red onion',
-      value: 'red-onion',
-   },
-   {
-      id: 10,
-      name: 'Red onion',
-      value: 'red-onion',
-   },
-   {
-      id: 11,
-      name: 'Red onion',
-      value: 'red-onion',
-   },
-   {
-      id: 12,
-      name: 'Red onion',
-      value: 'red-onion',
-   },
-
-   {
-      id: 13,
-      name: 'Red onion',
-      value: 'red-onion',
-   },
-
-   {
-      id: 14,
-      name: 'Red onion',
-      value: 'red-onion',
-   },
-];
 
 const ingredientsFilter = tv({
    slots: {
@@ -94,11 +16,10 @@ const ingredientsFilter = tv({
 });
 
 export const IngredientsFilter = () => {
-   const dispatch = useAppDispatch();
-   const selectedIngredients = useAppSelector(getFilterSelectedIngredients);
    const { container, title, limitButton } = ingredientsFilter();
+   const selectedIngredients = useAppSelector(getFilterSelectedIngredients);
+   const dispatch = useAppDispatch();
    const [isLimit, setIsLimit] = useState(true);
-
 
    const handleOnChange = (isSelected: boolean | undefined, value: string) => {
       const updatedSelectedIngredients = isSelected
@@ -114,12 +35,12 @@ export const IngredientsFilter = () => {
 
    const toggleIsLimitHandler = () => setIsLimit(prev => !prev);
 
-   const visibleIngredients = isLimit ? ingredients.slice(0, 6) : ingredients;
+   const visibleIngredients = isLimit ? ingredients?.slice(0, 6) : ingredients;
 
    return (
       <div className={container()}>
          <h1 className={title()}>Ingredients:</h1>
-         {visibleIngredients.map(el => {
+         {visibleIngredients?.map(el => {
             const isSelected = selectedIngredients?.includes(el.value);
             return (
                <Checkbox
