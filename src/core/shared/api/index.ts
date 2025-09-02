@@ -5,7 +5,7 @@ import {
 } from '@reduxjs/toolkit/query/react';
 
 const baseQuery = fetchBaseQuery({
-   baseUrl: 'http://localhost:8000',
+   baseUrl: 'https://json-server-next-pizza.onrender.com',
 });
 const baseQueryExtended: BaseQueryFn = async (args, api, extraOptions) => {
    const result = await baseQuery(args, api, extraOptions);
