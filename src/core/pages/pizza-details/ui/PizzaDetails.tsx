@@ -30,12 +30,12 @@ const pizzaDetails = tv(
    },
 );
 
-export const PizzaDetailsPage = ({ id }: { id: number }) => {
+export const PizzaDetailsPage = ({ id }: { id: string }) => {
    const { container } = pizzaDetails({
       responsive: { initial: 'initial', md: 'medium', lg: 'large' },
    });
    const { data: pizzas } = useGetPizzasQuery();
-   const { data: pizza } = useGetPizzaByIdQuery({ id });
+   const { data: pizza } = useGetPizzaByIdQuery(id);
 
    return (
       <div className={container()}>

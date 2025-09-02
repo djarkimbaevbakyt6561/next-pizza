@@ -1,6 +1,5 @@
 import { api as index } from 'shared/api';
 import { PizzaType } from '../model/pizza.types';
-import { GetPizzaByIdRequest } from './types';
 
 const api = index.injectEndpoints({
    endpoints: build => ({
@@ -28,8 +27,8 @@ const api = index.injectEndpoints({
          providesTags: ['pizza'],
          keepUnusedDataFor: 0,
       }),
-      getPizzaById: build.query<PizzaType, GetPizzaByIdRequest>({
-         query: ({ id }) => ({
+      getPizzaById: build.query<PizzaType, string>({
+         query: id => ({
             url: `/pizzas/${id}`,
             method: 'GET',
          }),
