@@ -1,9 +1,6 @@
 export { PizzaCollect } from './ui/PizzaCollect';
 
-export {
-   getPizzaCollectState as selectPizzaCollectState,
-   getTotalSum as selectTotalSum,
-} from './model/redux/selectors';
+export { getPizzaCollectState, getTotalSum } from './model/redux/selectors';
 export {
    selectSize,
    selectVariant,

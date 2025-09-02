@@ -58,14 +58,14 @@ export const menuItems = ({
    }
 
    return searchedPizzas.map(pizza => {
-      const foundPizza = cartPizzas.find(
+      const foundCartPizza = cartPizzas.find(
          cartPizza => cartPizza.id === pizza.id,
       );
       return {
          key: pizza.id,
          label: (
             <SearchItem
-               count={foundPizza?.count || 0}
+               count={foundCartPizza?.count || 0}
                pizza={pizza}
                query={inputValue}
                onCollect={clearInputValue}

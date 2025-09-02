@@ -1,25 +1,8 @@
 import { Carousel, CarouselProps } from 'antd';
 import { tv } from 'tailwind-variants';
-import { PizzaCard, PizzaCardSkeleton, PizzaType } from 'entities/pizza';
-
-const recommendationsCarousel = tv(
-   {
-      slots: {
-         carousel: '',
-      },
-      variants: {
-         responsive: {
-            // initial: {
-            //    carousel: 'mx-auto max-w-[25rem]',
-            // },
-            // xLarge: {
-            //    carousel: 'mx-0 max-w-[35rem]',
-            // },
-         },
-      },
-   },
-   { responsiveVariants: ['xl'] },
-);
+import { PizzaCartItemType } from 'entities/cart';
+import { PizzaCardSkeleton, PizzaType } from 'entities/pizza';
+import { CarouselItem } from './item/CarouselItem';
 
 const sampleArrow = tv({
    base: '!text-black',
@@ -43,19 +26,20 @@ function SampleArrow({ className, style, onClick }: ArrowProps) {
 
 export const RecommendationsCarousel = ({
    pizzas,
+   cartPizzas,
 }: {
    pizzas: PizzaType[] | undefined;
+   cartPizzas: PizzaCartItemType[];
 }) => {
-   const { carousel } = recommendationsCarousel();
    const loadingArray = Array.from({ length: 4 }, (_, i) => i);
    return (
       <section>
          <Carousel
             arrows
-            className={carousel()}
             nextArrow={<SampleArrow />}
             prevArrow={<SampleArrow />}
             infinite
+            dots={false}
             slidesToShow={4}
             slidesToScroll={4}
             responsive={[
@@ -83,12 +67,15 @@ export const RecommendationsCarousel = ({
             ]}
          >
             {pizzas
-               ? pizzas.map(el => {
+               ? pizzas.map(pizza => {
+                    const foundCartPizza = cartPizzas.find(
+                       cartPizza => cartPizza.id === pizza.id,
+                    );
                     return (
-                       <PizzaCard
-                          className="block mx-auto h-[27.3125rem]"
-                          key={el.id}
-                          pizza={el}
+                       <CarouselItem
+                          count={foundCartPizza?.count || 0}
+                          pizza={pizza}
+                          key={pizza.id}
                        />
                     );
                  })

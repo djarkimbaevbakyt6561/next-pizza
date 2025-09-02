@@ -1,18 +1,15 @@
 'use client';
-import {
-   selectPizzaCollectState,
-   selectTotalSum,
-} from 'features/pizza-collect';
+import { getPizzaCollectState, getTotalSum } from 'features/pizza-collect';
 import { getCartPizzas } from 'entities/cart';
 import { useGetPizzaByIdQuery } from 'entities/pizza/api';
 import { useAppSelector } from 'shared/store/redux';
 import { PizzaDetailsModal } from './modal/PizzaDetailsModal';
 
-export const PizzaDetailsModalLayout = ({ pizzaId }: { pizzaId: number }) => {
-   const totalSum = useAppSelector(selectTotalSum);
-   const pizzaCollect = useAppSelector(selectPizzaCollectState);
+export const PizzaDetailsModalLayout = ({ pizzaId }: { pizzaId: string }) => {
+   const totalSum = useAppSelector(getTotalSum);
+   const pizzaCollect = useAppSelector(getPizzaCollectState);
    const cartPizzas = useAppSelector(getCartPizzas);
-   const { data: pizza } = useGetPizzaByIdQuery({ id: pizzaId });
+   const { data: pizza } = useGetPizzaByIdQuery(pizzaId);
 
    return (
       <PizzaDetailsModal

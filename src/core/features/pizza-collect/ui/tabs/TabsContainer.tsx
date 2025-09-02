@@ -15,12 +15,8 @@ const tabButton = tv({
    },
    variants: {
       disabled: {
-         true: {
-            tabButton: 'cursor-not-allowed text-neutral-500/50',
-         },
-         false: {
-            tabButton: 'text-neutral-800',
-         },
+         true: 'cursor-not-allowed text-neutral-500/50',
+         false: 'text-neutral-800',
       },
    },
 });

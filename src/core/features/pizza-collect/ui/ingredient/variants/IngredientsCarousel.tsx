@@ -2,9 +2,9 @@ import { Carousel, CarouselProps } from 'antd';
 import { tv } from 'tailwind-variants';
 import { IngredientCard, IngredientType } from 'entities/ingredient';
 import { useAppDispatch } from 'shared/store/redux';
-import { toggleIngredient } from '../../model/redux/slice';
+import { toggleIngredient } from '../../../model/redux/slice';
 
-const carouselIngredients = tv(
+const ingredientsCarousel = tv(
    {
       slots: {
          carousel: '',
@@ -48,7 +48,7 @@ function SampleArrow({ className, style, onClick }: ArrowProps) {
    );
 }
 
-export const CarouseIngredients = ({
+export const IngredientsCarousel = ({
    selectedIngredients,
    ingredients,
 }: {
@@ -56,7 +56,7 @@ export const CarouseIngredients = ({
    ingredients: IngredientType[];
 }) => {
    const dispatch = useAppDispatch();
-   const { carousel, ingredientWrapper, ingredientCard } = carouselIngredients({
+   const { carousel, ingredientWrapper, ingredientCard } = ingredientsCarousel({
       responsive: { initial: 'initial', xl: 'xLarge', lg: 'large' },
    });
 

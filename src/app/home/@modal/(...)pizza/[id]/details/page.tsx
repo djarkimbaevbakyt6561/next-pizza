@@ -6,5 +6,5 @@ export default async function Page({
    params: Promise<{ id: string }>;
 }) {
    const pizzaId = (await params).id;
-   return <PizzaDetailsModalLayout pizzaId={Number(pizzaId)} />;
+   return <PizzaDetailsModalLayout pizzaId={pizzaId} />;
 }

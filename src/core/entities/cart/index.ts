@@ -12,3 +12,5 @@ export {
 } from './model/redux/slice';
 
 export type { PizzaCartItemType } from './model/types';
+
+export { useCartPizzaManipulation } from './hooks/useCartPizzaManipulation';

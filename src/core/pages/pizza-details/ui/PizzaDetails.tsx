@@ -1,7 +1,9 @@
 'use client';
 import { Breadcrumb, Spin } from 'antd';
 import { tv } from 'tailwind-variants';
+import { getCartPizzas } from 'entities/cart';
 import { useGetPizzaByIdQuery, useGetPizzasQuery } from 'entities/pizza/api';
+import { useAppSelector } from 'shared/store/redux';
 import { PizzaDetailsWidget } from './sections/pizza-details-widget/ui/PizzaDetailsWidget';
 import { RecommendationsCarousel } from './sections/recommendations-carousel/ui/RecommendationsCarousel';
 
@@ -34,6 +36,8 @@ export const PizzaDetailsPage = ({ id }: { id: string }) => {
    const { container } = pizzaDetails({
       responsive: { initial: 'initial', md: 'medium', lg: 'large' },
    });
+   const cartPizzas = useAppSelector(getCartPizzas);
+
    const { data: pizzas } = useGetPizzasQuery();
    const { data: pizza } = useGetPizzaByIdQuery(id);
 
@@ -56,8 +60,11 @@ export const PizzaDetailsPage = ({ id }: { id: string }) => {
                   ]}
                   params={{ title: pizza?.title }}
                />
-               <PizzaDetailsWidget pizza={pizza} />
-               <RecommendationsCarousel pizzas={pizzas} />
+               <PizzaDetailsWidget pizza={pizza} cartPizzas={cartPizzas} />
+               <RecommendationsCarousel
+                  pizzas={pizzas}
+                  cartPizzas={cartPizzas}
+               />
             </>
          ) : (
             <Spin size="large" className="mx-auto w-full !py-4" />

@@ -1,16 +1,12 @@
 import { Button } from 'antd';
-import clsx from 'clsx';
-import Image from 'next/image';
 import { useEffect } from 'react';
 import { tv } from 'tailwind-variants';
-import { handleOnOpenDrawer } from 'features/cart-drawer';
 import { PizzaCollect, selectSize } from 'features/pizza-collect';
 import { addPizza, PizzaCartItemType } from 'entities/cart';
 import { PizzaSizeType, PizzaType } from 'entities/pizza';
-import { BasketIcon } from 'shared/assets';
 import { PizzaVariant } from 'shared/enums';
 import { useAppDispatch } from 'shared/store/redux';
-import pizzaInCartImage from '../../../assets/pizza-in-cart.png';
+import { PizzaAlreadyInCart } from '../already-in-cart/PizzaAlreadyInCart';
 
 const pizzaDetailsRightSide = tv(
    {
@@ -18,7 +14,7 @@ const pizzaDetailsRightSide = tv(
          detailsContainer: 'flex-1 bg-[rgba(244,241,238,1)] ',
          pizzaCollect:
             'max-h-[26.875rem] pr-4 overflow-y-auto scrollbar scrollbar-thumb-rounded-xl scrollbar-w-[0.625rem] hover:scrollbar-thumb-[rgba(57,57,57,0.3)] scrollbar-thumb-[rgba(57,57,57,0.2)]',
-         buttonContainer: '',
+         buttonContainer: 'h-full',
          addToCartButton: 'w-full mt-7',
       },
       variants: {
@@ -87,10 +83,6 @@ export const PizzaDetailsRightSide = ({
       );
    };
 
-   const handeGoToCart = () => {
-      dispatch(handleOnOpenDrawer());
-   };
-
    useEffect(() => {
       dispatch(
          selectSize({
@@ -104,29 +96,7 @@ export const PizzaDetailsRightSide = ({
    return (
       <div className={detailsContainer()}>
          {inCart ? (
-            <div className={clsx(buttonContainer(), 'flex flex-col h-full')}>
-               <div className="flex-1 flex flex-col items-center justify-center">
-                  <Image
-                     src={pizzaInCartImage}
-                     alt="Pizza In Cart"
-                     className="mx-auto"
-                     width={150}
-                     height={150}
-                  />
-                  <h3 className="text-xl font-bold text-center">
-                     Already in Cart
-                  </h3>
-               </div>
-               <Button
-                  color="green"
-                  variant="solid"
-                  className={addToCartButton()}
-                  onClick={handeGoToCart}
-                  icon={<BasketIcon />}
-               >
-                  Already in Cart
-               </Button>
-            </div>
+            <PizzaAlreadyInCart className={buttonContainer()} />
          ) : (
             <>
                <PizzaCollect

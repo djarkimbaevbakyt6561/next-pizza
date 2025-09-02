@@ -1,7 +1,7 @@
 import { tv } from 'tailwind-variants';
 import { IngredientCard, IngredientType } from 'entities/ingredient';
 import { useAppDispatch } from 'shared/store/redux';
-import { toggleIngredient } from '../../model/redux/slice';
+import { toggleIngredient } from '../../../model/redux/slice';
 
 const ingredientsList = tv(
    {

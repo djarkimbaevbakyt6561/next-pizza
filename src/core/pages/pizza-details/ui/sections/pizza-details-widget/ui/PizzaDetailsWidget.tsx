@@ -2,12 +2,14 @@ import { Button } from 'antd';
 import Image from 'next/image';
 import { useEffect } from 'react';
 import { tv } from 'tailwind-variants';
+import { PizzaAlreadyInCart } from 'widgets/pizza-details-modal';
 import {
    PizzaCollect,
-   selectPizzaCollectState,
+   getPizzaCollectState,
    selectSize,
-   selectTotalSum,
+   getTotalSum,
 } from 'features/pizza-collect';
+import { addPizza, PizzaCartItemType } from 'entities/cart';
 import { PizzaType } from 'entities/pizza';
 import { useAppDispatch, useAppSelector } from 'shared/store/redux';
 
@@ -48,7 +50,13 @@ const pizzaDetailsWidget = tv(
    },
 );
 
-export const PizzaDetailsWidget = ({ pizza }: { pizza: PizzaType }) => {
+export const PizzaDetailsWidget = ({
+   pizza,
+   cartPizzas,
+}: {
+   pizza: PizzaType;
+   cartPizzas: PizzaCartItemType[];
+}) => {
    const { content, image, detailsContainer, addButton } = pizzaDetailsWidget({
       responsive: {
          initial: 'initial',
@@ -57,8 +65,9 @@ export const PizzaDetailsWidget = ({ pizza }: { pizza: PizzaType }) => {
          xl: 'xLarge',
       },
    });
-   const totalSum = useAppSelector(selectTotalSum);
-   const { pizzaSize } = useAppSelector(selectPizzaCollectState);
+   const totalSum = useAppSelector(getTotalSum);
+   const { pizzaSize, selectedIngredients, pizzaVariant } =
+      useAppSelector(getPizzaCollectState);
    const dispatch = useAppDispatch();
 
    useEffect(() => {
@@ -69,6 +78,30 @@ export const PizzaDetailsWidget = ({ pizza }: { pizza: PizzaType }) => {
          }),
       );
    }, [pizza, dispatch]);
+
+   const inCart = cartPizzas.some(cartPizza => cartPizza.id === pizza.id);
+
+   const handleAddPizza = () => {
+      const selectedIngredientsArray: string[] = [];
+
+      for (const key in selectedIngredients) {
+         selectedIngredientsArray.push(key);
+      }
+
+      dispatch(
+         addPizza({
+            id: pizza.id,
+            title: pizza.title,
+            imageUrl: pizzaSize.imageUrl,
+            size: pizzaSize.size,
+            variant: pizzaVariant,
+            selectedIngredients: selectedIngredientsArray,
+            price: totalSum,
+            count: 1,
+         }),
+      );
+   };
+
    return (
       <section className={content()}>
          <>
@@ -76,17 +109,26 @@ export const PizzaDetailsWidget = ({ pizza }: { pizza: PizzaType }) => {
                <Image
                   className={image()}
                   src={pizzaSize.imageUrl}
-                  alt={pizza.title || 'Pizza image'}
+                  alt={pizza.title}
                   width={500}
                   height={500}
                />
             )}
-            <div className={detailsContainer()}>
-               <PizzaCollect pizza={pizza} variant="pizzaDetails" />
-               <Button color="primary" variant="solid" className={addButton()}>
-                  Add to cart for {totalSum} $
-               </Button>
-            </div>
+            {inCart ? (
+               <PizzaAlreadyInCart className="flex-1 mx-auto max-w-[25rem] w-full" />
+            ) : (
+               <div className={detailsContainer()}>
+                  <PizzaCollect pizza={pizza} variant="pizzaDetails" />
+                  <Button
+                     color="primary"
+                     variant="solid"
+                     className={addButton()}
+                     onClick={handleAddPizza}
+                  >
+                     Add to cart for {totalSum} $
+                  </Button>
+               </div>
+            )}
          </>
       </section>
    );

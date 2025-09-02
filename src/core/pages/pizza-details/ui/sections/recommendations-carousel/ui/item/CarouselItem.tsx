@@ -1,13 +1,14 @@
+'use client';
 import { useCartPizzaManipulation } from 'entities/cart';
 import { PizzaCard, PizzaType } from 'entities/pizza';
 import { PizzaSize, PizzaVariant } from 'shared/enums';
 
-export const CatalogItem = ({
-   count,
+export const CarouselItem = ({
    pizza,
+   count,
 }: {
-   count: number;
    pizza: PizzaType;
+   count: number;
 }) => {
    const { handleAddPizza, incrementCount, decrementCount } =
       useCartPizzaManipulation(count, {
@@ -20,16 +21,15 @@ export const CatalogItem = ({
          selectedIngredients: [],
          count: 1,
       });
+
    return (
-      <li className="justify-self-center">
-         <PizzaCard
-            count={count}
-            addPizza={handleAddPizza}
-            incrementCount={incrementCount}
-            decrementCount={decrementCount}
-            pizza={pizza}
-            className="h-full"
-         />
-      </li>
+      <PizzaCard
+         count={count}
+         addPizza={handleAddPizza}
+         incrementCount={incrementCount}
+         decrementCount={decrementCount}
+         className="block mx-auto h-[27.3125rem]"
+         pizza={pizza}
+      />
    );
 };

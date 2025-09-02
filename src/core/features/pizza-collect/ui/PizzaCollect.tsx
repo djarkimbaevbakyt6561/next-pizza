@@ -1,14 +1,13 @@
 'use client';
 import clsx from 'clsx';
 import { useEffect } from 'react';
-import { tv, VariantProps } from 'tailwind-variants';
+import { tv } from 'tailwind-variants';
 import { useGetIngredientsQuery } from 'entities/ingredient/api';
 import { pizzaSizeSmText, PizzaType } from 'entities/pizza';
 import { useAppDispatch, useAppSelector } from 'shared/store/redux';
 import { getPizzaCollectState } from '../model/redux/selectors';
 import { setIngredients } from '../model/redux/slice';
-import { CarouseIngredients } from './ingredient/CarouseIngredients';
-import { IngredientsList } from './ingredient/IngredientsList';
+import { IngredientsContainer } from './ingredient/IngredientsContainer';
 import { TabsContainer } from './tabs/TabsContainer';
 
 const pizzaCollectStyle = tv(
@@ -17,7 +16,6 @@ const pizzaCollectStyle = tv(
          base: '',
          title: 'font-bold',
          description: 'text-neutral-500',
-         ingredientsTitle: 'text-lg mt-7',
       },
       defaultVariants: {
          variant: 'modal',
@@ -39,15 +37,18 @@ const pizzaCollectStyle = tv(
    },
 );
 
-type PizzaCollectVariants = VariantProps<typeof pizzaCollectStyle>;
-
-interface Props extends PizzaCollectVariants {
+interface Props {
    className?: string;
    pizza: PizzaType;
+   variant?: 'modal' | 'pizzaDetails';
 }
 
-export const PizzaCollect = ({ className, pizza, variant }: Props) => {
-   const { base, title, description, ingredientsTitle } = pizzaCollectStyle({
+export const PizzaCollect = ({
+   className,
+   pizza,
+   variant = 'modal',
+}: Props) => {
+   const { base, title, description } = pizzaCollectStyle({
       className,
       variant,
    });
@@ -73,24 +74,11 @@ export const PizzaCollect = ({ className, pizza, variant }: Props) => {
          <TabsContainer pizza={pizza} />
 
          {/* Ingredients */}
-         <div>
-            <h3 className={ingredientsTitle()}>Add to taste</h3>
-            {ingredients.length ? (
-               variant === 'pizzaDetails' ? (
-                  <CarouseIngredients
-                     selectedIngredients={selectedIngredients}
-                     ingredients={ingredients}
-                  />
-               ) : (
-                  <IngredientsList
-                     selectedIngredients={selectedIngredients}
-                     ingredients={ingredients}
-                  />
-               )
-            ) : (
-               <h1>Loading</h1>
-            )}
-         </div>
+         <IngredientsContainer
+            ingredients={ingredients}
+            selectedIngredients={selectedIngredients}
+            variant={variant}
+         />
       </div>
    );
 };
