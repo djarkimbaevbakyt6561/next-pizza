@@ -53,7 +53,6 @@ export const PizzaDetailsModal = ({
    const { modal, modalContent, spin } = pizzaWidget({
       responsive: { initial: 'initial', md: 'medium', lg: 'large' },
    });
-
    const dispatch = useAppDispatch();
    const router = useRouter();
 

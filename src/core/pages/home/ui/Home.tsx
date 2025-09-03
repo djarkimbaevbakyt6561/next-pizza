@@ -9,7 +9,7 @@ const home = tv(
    {
       slots: {
          mainContainer: '_container',
-         title: 'text-4xl font-bold  col-start-1 col-end-4',
+         title: 'font-bold  col-start-1 col-end-4',
          container: 'grid',
          tabsFilter: '',
          sortSelect: '',

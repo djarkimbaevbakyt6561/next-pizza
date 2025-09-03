@@ -36,7 +36,7 @@ export const menuItems = ({
          {
             key: 'loading',
             label: (
-               <div className="p-4 text-center text-gray-500">
+               <div className="p-4 text-center text-neutral-500">
                   <Spin size="small" />
                </div>
             ),
@@ -49,7 +49,7 @@ export const menuItems = ({
          {
             key: 'empty',
             label: (
-               <div className="p-4 text-center text-gray-500">
+               <div className="p-4 text-center text-neutral-500">
                   No results found
                </div>
             ),

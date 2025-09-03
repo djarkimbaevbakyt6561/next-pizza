@@ -108,6 +108,7 @@ export const PizzaDetailsWidget = ({
             {pizzaSize.imageUrl && (
                <Image
                   className={image()}
+                  priority
                   src={pizzaSize.imageUrl}
                   alt={pizza.title}
                   width={500}

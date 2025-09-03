@@ -35,7 +35,7 @@ export const PriceRange = () => {
 
    return (
       <div className={container()}>
-         <h1 className={title()}>Price from and to:</h1>
+         <h3 className={title()}>Price from and to:</h3>
          <div className={inputsGroupContainer()}>
             <div role="group" className={inputContainer()}>
                <input

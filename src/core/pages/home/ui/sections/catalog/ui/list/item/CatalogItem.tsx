@@ -3,9 +3,11 @@ import { PizzaCard, PizzaType } from 'entities/pizza';
 import { PizzaSize, PizzaVariant } from 'shared/enums';
 
 export const CatalogItem = ({
+   priority,
    count,
    pizza,
 }: {
+   priority: boolean;
    count: number;
    pizza: PizzaType;
 }) => {
@@ -23,6 +25,7 @@ export const CatalogItem = ({
    return (
       <li className="justify-self-center">
          <PizzaCard
+            priority={priority}
             count={count}
             addPizza={handleAddPizza}
             incrementCount={incrementCount}

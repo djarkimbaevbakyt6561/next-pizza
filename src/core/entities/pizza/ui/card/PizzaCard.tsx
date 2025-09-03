@@ -14,7 +14,8 @@ const pizzaCard = tv({
       imageContainer: 'relative box-content rounded-2xl bg-orange-50 py-6 px-9',
       settingsLink: 'absolute right-5 top-5',
       title: 'text-2xl font-bold mt-4',
-      description: 'first-letter:uppercase text-sm text-gray-400 flex-1 mt-2',
+      description:
+         'first-letter:uppercase text-sm text-neutral-400 flex-1 mt-2',
       footer: 'flex items-center justify-between mt-5',
       price: 'text-xl',
       boldPrice: 'font-bold',
@@ -23,6 +24,7 @@ const pizzaCard = tv({
 });
 
 interface PizzaCardProps {
+   priority?: boolean;
    className?: string;
    pizza: PizzaType;
    count: number;
@@ -32,6 +34,7 @@ interface PizzaCardProps {
 }
 
 export const PizzaCard = ({
+   priority,
    className,
    pizza,
    count,
@@ -63,6 +66,7 @@ export const PizzaCard = ({
                </Link>
             )}
             <Image
+               priority={priority}
                src={pizza.defaultImageUrl}
                alt={pizza.title}
                width={211}

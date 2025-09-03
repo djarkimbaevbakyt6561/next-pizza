@@ -7,12 +7,12 @@ import {
    parseAsStringEnum,
    useQueryStates,
 } from 'nuqs';
+import { EmptyPizza } from 'widgets/pizza-details-modal';
 import { getCartPizzas } from 'entities/cart';
 import { useGetPizzasQuery } from 'entities/pizza/api';
 import { PizzaVariant } from 'shared/enums';
 import { useAppSelector } from 'shared/store/redux';
 import { useFilteredPizzas } from '../../filter';
-import { EmptyCatalog } from './empty/EmptyCatalog';
 import { CatalogList } from './list/CatalogList';
 import { CatalogSkeleton } from './skeleton/CatalogSkeleton';
 
@@ -60,7 +60,7 @@ export const PizzaCatalogLayout = ({ className }: { className?: string }) => {
       >
          <section className={className}>
             {!isLoading && !filteredPizzas.length ? (
-               <EmptyCatalog />
+               <EmptyPizza />
             ) : (
                <ul
                   className={

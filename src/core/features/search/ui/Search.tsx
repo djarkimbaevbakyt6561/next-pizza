@@ -16,9 +16,10 @@ interface SearchProps {
 const search = tv({
    slots: {
       inputContainer: 'relative flex items-center',
-      input: 'bg-neutral-50 pl-11 pr-9 py-3 rounded-xl w-full  placeholder:text-gray-400/75 focus:outline-none',
+      input: 'bg-neutral-50 pl-11 pr-9 py-3 rounded-xl w-full  placeholder:text-neutral-400/75 focus:outline-none',
       magnifyingGlass: 'absolute left-4',
-      removeButton: 'absolute right-0 top-0 bottom-0 pr-4 pl-2 text-gray-400',
+      removeButton:
+         'absolute right-0 top-0 bottom-0 pr-4 pl-2 text-neutral-400',
       backdrop: 'fixed inset-0 bg-black bg-opacity-60 z-20',
    },
 });

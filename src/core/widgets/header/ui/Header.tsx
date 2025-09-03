@@ -13,7 +13,7 @@ const header = tv(
          container: '_container grid items-center gap-3',
          logoWrapper: 'flex gap-3 items-center',
          title: 'uppercase font-black',
-         subtitle: 'text-gray-500 leading-5',
+         subtitle: 'text-neutral-500 leading-5',
          logoImage: 'w-9 h-9',
       },
       variants: {

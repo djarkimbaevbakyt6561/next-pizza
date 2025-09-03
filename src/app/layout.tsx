@@ -3,6 +3,7 @@ import { Nunito } from 'next/font/google';
 import NextTopLoader from 'nextjs-toploader';
 import { App } from 'core/app/App';
 import '@ant-design/v5-patch-for-react-19';
+import { Header } from 'widgets/header';
 
 const nunito = Nunito({
    subsets: ['latin'],
@@ -14,11 +15,9 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({
-   header,
    modal,
    children,
 }: Readonly<{
-   header: React.ReactNode;
    modal: React.ReactNode;
    children: React.ReactNode;
 }>) {
@@ -27,7 +26,7 @@ export default function RootLayout({
          <body className={`${nunito.className} antialiased`}>
             <App>
                <NextTopLoader showSpinner={false} color="#f97316 " height={2} />
-               {header}
+               <Header />
                {modal}
                <main>{children}</main>
             </App>

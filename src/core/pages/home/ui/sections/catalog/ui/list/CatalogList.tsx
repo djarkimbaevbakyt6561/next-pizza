@@ -18,12 +18,13 @@ export const CatalogList = ({
                'grid grid-cols-[repeat(auto-fit,minmax(287px,1fr))] justify-between gap-10'
             }
          >
-            {pizzas.map(pizza => {
+            {pizzas.map((pizza, index) => {
                const foundCartPizza = cartPizzas.find(
                   cartPizza => cartPizza.id === pizza.id,
                );
                return (
                   <CatalogItem
+                     priority={index === 0}
                      key={pizza.id}
                      count={foundCartPizza?.count || 0}
                      pizza={pizza}

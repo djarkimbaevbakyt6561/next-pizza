@@ -5,11 +5,15 @@ import { useGetPizzaByIdQuery } from 'entities/pizza/api';
 import { useAppSelector } from 'shared/store/redux';
 import { PizzaDetailsModal } from './modal/PizzaDetailsModal';
 
-export const PizzaDetailsModalLayout = ({ pizzaId }: { pizzaId: string }) => {
+export const PizzaDetailsModalLayout = ({
+   pizzaId,
+}: {
+   pizzaId: string | null;
+}) => {
    const totalSum = useAppSelector(getTotalSum);
    const pizzaCollect = useAppSelector(getPizzaCollectState);
    const cartPizzas = useAppSelector(getCartPizzas);
-   const { data: pizza } = useGetPizzaByIdQuery(pizzaId);
+   const { data: pizza } = useGetPizzaByIdQuery(pizzaId ?? '');
 
    return (
       <PizzaDetailsModal

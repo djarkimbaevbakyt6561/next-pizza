@@ -1,10 +1,11 @@
+import { use } from 'react';
 import { PizzaDetailsPage } from 'pages/pizza-details/ui/PizzaDetails';
 
-export default async function PizzaPage({
+export default function PizzaPage({
    params,
 }: {
    params: Promise<{ id: string }>;
 }) {
-   const id = (await params).id;
+   const { id } = use(params);
    return <PizzaDetailsPage id={id} />;
 }

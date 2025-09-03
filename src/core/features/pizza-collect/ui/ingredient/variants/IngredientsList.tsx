@@ -5,7 +5,7 @@ import { toggleIngredient } from '../../../model/redux/slice';
 
 const ingredientsList = tv(
    {
-      base: 'flex justify-between gap-2 flex-wrap mt-[0.9375rem]',
+      base: 'flex justify-center gap-2 flex-wrap mt-[0.9375rem]',
       variants: {
          responsive: {
             initial: { base: 'mx-auto max-w-[25.5rem]' },

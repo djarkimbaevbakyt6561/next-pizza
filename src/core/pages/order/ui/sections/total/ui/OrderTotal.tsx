@@ -1,7 +1,7 @@
 'use client';
 import { Button, Card, ConfigProvider } from 'antd';
 import { tv } from 'tailwind-variants';
-import { getCartTotalSum } from 'entities/cart';
+import { getCartTaxAmount, getCartTotalSum } from 'entities/cart';
 import { useAppSelector } from 'shared/store/redux';
 import BoxIcon from '../assets/box.svg';
 import DeliveryIcon from '../assets/delivery.svg';
@@ -35,8 +35,8 @@ export const OrderTotal = () => {
       paymentButton,
    } = orderTotal();
 
-   const totalSumOfPizzas = useAppSelector(getCartTotalSum);
-   const tax = totalSumOfPizzas / 20;
+   const totalSum = useAppSelector(getCartTotalSum);
+   const taxAmount = useAppSelector(getCartTaxAmount);
 
    return (
       <ConfigProvider
@@ -56,7 +56,7 @@ export const OrderTotal = () => {
             title={
                <>
                   <h2 className={mainTitle()}>Total:</h2>
-                  <h1 className={totalAmount()}>{totalSumOfPizzas + tax} $</h1>
+                  <h1 className={totalAmount()}>{totalSum + taxAmount} $</h1>
                </>
             }
          >
@@ -67,7 +67,7 @@ export const OrderTotal = () => {
                      <p className={priceRow()}>
                         Cost:
                         <span className={dashedLine()} />
-                        <strong>{totalSumOfPizzas} $</strong>
+                        <strong>{totalSum} $</strong>
                      </p>
                   </li>
                   <li className={listItem()}>
@@ -75,7 +75,7 @@ export const OrderTotal = () => {
                      <p className={priceRow()}>
                         Tax:
                         <span className={dashedLine()} />
-                        <strong>{tax} $</strong>
+                        <strong>{taxAmount} $</strong>
                      </p>
                   </li>
                   <li className={listItem()}>

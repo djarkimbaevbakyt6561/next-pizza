@@ -14,7 +14,7 @@ const pizzaDetailsRightSide = tv(
          detailsContainer: 'flex-1 bg-[rgba(244,241,238,1)] ',
          pizzaCollect:
             'max-h-[26.875rem] pr-4 overflow-y-auto scrollbar scrollbar-thumb-rounded-xl scrollbar-w-[0.625rem] hover:scrollbar-thumb-[rgba(57,57,57,0.3)] scrollbar-thumb-[rgba(57,57,57,0.2)]',
-         buttonContainer: 'h-full',
+         buttonContainer: '',
          addToCartButton: 'w-full mt-7',
       },
       variants: {

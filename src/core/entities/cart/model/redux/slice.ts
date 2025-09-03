@@ -1,9 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { TAX_RATE } from '../consts';
 import { PizzaCartItemType } from '../types';
 
 interface CartState {
    pizzas: PizzaCartItemType[];
    totalSum: number;
+   taxAmount: number;
 }
 
 const calcTotalSum = (pizzas: PizzaCartItemType[]) =>
@@ -12,6 +14,7 @@ const calcTotalSum = (pizzas: PizzaCartItemType[]) =>
 const initialState: CartState = {
    pizzas: [],
    totalSum: 0,
+   taxAmount: 0,
 };
 
 const cartSlice = createSlice({
@@ -21,6 +24,7 @@ const cartSlice = createSlice({
       hydrateCart: (state, action: PayloadAction<PizzaCartItemType[]>) => {
          state.pizzas = action.payload;
          state.totalSum = calcTotalSum(state.pizzas);
+         state.taxAmount = Math.round(state.totalSum * TAX_RATE);
       },
       addPizza: (state, action: PayloadAction<PizzaCartItemType>) => {
          state.pizzas.push({
@@ -34,6 +38,7 @@ const cartSlice = createSlice({
             count: action.payload.count,
          });
          state.totalSum = calcTotalSum(state.pizzas);
+         state.taxAmount = Math.round(state.totalSum * TAX_RATE);
       },
       setCount: (
          state,
@@ -52,6 +57,7 @@ const cartSlice = createSlice({
             });
          }
          state.totalSum = calcTotalSum(state.pizzas);
+         state.taxAmount = Math.round(state.totalSum * TAX_RATE);
       },
    },
 });

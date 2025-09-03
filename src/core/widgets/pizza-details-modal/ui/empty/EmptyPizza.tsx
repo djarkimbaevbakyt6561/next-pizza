@@ -1,8 +1,8 @@
 import { Empty, Typography } from 'antd';
 import Image from 'next/image';
-import emptyPizzaImage from '../../../../../assets/empty.png';
+import emptyPizzaImage from '../../assets/empty.png';
 
-export const EmptyCatalog = () => {
+export const EmptyPizza = () => {
    return (
       <Empty
          image={
@@ -11,13 +11,13 @@ export const EmptyCatalog = () => {
                src={emptyPizzaImage}
                placeholder="blur"
                alt="Empty box"
-               width={160}
-               height={160}
+               width={220}
+               height={280}
             />
          }
-         styles={{ image: { height: 160 } }}
+         styles={{ image: { height: 280 } }}
          description={
-            <Typography.Text className="!text-lg">
+            <Typography.Text className="!text-xl font-bold">
                No pizza found, Sry {' :('}
             </Typography.Text>
          }

@@ -39,7 +39,7 @@ export const IngredientsFilter = () => {
 
    return (
       <div className={container()}>
-         <h1 className={title()}>Ingredients:</h1>
+         <h3 className={title()}>Ingredients:</h3>
          {visibleIngredients?.map(el => {
             const isSelected = selectedIngredients?.includes(el.value);
             return (

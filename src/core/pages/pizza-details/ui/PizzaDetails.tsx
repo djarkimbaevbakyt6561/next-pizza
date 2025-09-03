@@ -1,6 +1,8 @@
 'use client';
 import { Breadcrumb, Spin } from 'antd';
+import { redirect } from 'next/navigation';
 import { tv } from 'tailwind-variants';
+import { EmptyPizza } from 'widgets/pizza-details-modal';
 import { getCartPizzas } from 'entities/cart';
 import { useGetPizzaByIdQuery, useGetPizzasQuery } from 'entities/pizza/api';
 import { useAppSelector } from 'shared/store/redux';
@@ -39,7 +41,10 @@ export const PizzaDetailsPage = ({ id }: { id: string }) => {
    const cartPizzas = useAppSelector(getCartPizzas);
 
    const { data: pizzas } = useGetPizzasQuery();
-   const { data: pizza } = useGetPizzaByIdQuery(id);
+   const { data: pizza, isError } = useGetPizzaByIdQuery(id);
+
+   if (isError) return <EmptyPizza />;
+   if (pizza && !pizza.sizes) return redirect('/home');
 
    return (
       <div className={container()}>

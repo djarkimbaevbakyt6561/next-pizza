@@ -2,10 +2,9 @@
 import { Button, ConfigProvider } from 'antd';
 import { useRouter } from 'next/navigation';
 import { tv } from 'tailwind-variants';
-import { getCartTotalSum } from 'entities/cart';
+import { getCartTaxAmount, getCartTotalSum } from 'entities/cart';
 import { ArrowRightIcon } from 'shared/assets';
 import { useAppSelector } from 'shared/store/redux';
-import { TAX_RATE } from '../../model/consts';
 
 const cartDrawerFooter = tv({
    slots: {
@@ -20,6 +19,7 @@ export const CartDrawerFooter = ({ onClose }: { onClose: () => void }) => {
    const { container, priceRow, dashedLine, orderButton } = cartDrawerFooter();
 
    const totalSum = useAppSelector(getCartTotalSum);
+   const taxAmount = useAppSelector(getCartTaxAmount);
    const router = useRouter();
 
    const handleGoToOrderPage = () => {
@@ -27,7 +27,6 @@ export const CartDrawerFooter = ({ onClose }: { onClose: () => void }) => {
       onClose();
    };
 
-   const taxAmount = totalSum * TAX_RATE;
    return (
       <div className={container()}>
          <p className={priceRow()}>

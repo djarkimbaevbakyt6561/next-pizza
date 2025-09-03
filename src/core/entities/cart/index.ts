@@ -2,6 +2,7 @@ export {
    getCartPizzas,
    getCartTotalSum,
    getCartPizzasCount,
+   getCartTaxAmount,
 } from './model/redux/selectors';
 
 export {
