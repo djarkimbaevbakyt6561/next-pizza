@@ -1,3 +1,5 @@
+import { Spin } from 'antd';
+
 export default function Loading() {
-   return <div>Loading</div>;
+   return <Spin size="large" className="mx-auto w-full !py-4" />;
 }
