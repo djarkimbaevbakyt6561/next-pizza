@@ -1,4 +1,5 @@
 import { Button } from 'antd';
+import clsx from 'clsx';
 import { useEffect } from 'react';
 import { tv } from 'tailwind-variants';
 import { PizzaCollect, selectSize } from 'features/pizza-collect';
@@ -96,7 +97,7 @@ export const PizzaDetailsRightSide = ({
    return (
       <div className={detailsContainer()}>
          {inCart ? (
-            <PizzaAlreadyInCart className={buttonContainer()} />
+            <PizzaAlreadyInCart className={clsx(buttonContainer(), 'h-full')} />
          ) : (
             <>
                <PizzaCollect
