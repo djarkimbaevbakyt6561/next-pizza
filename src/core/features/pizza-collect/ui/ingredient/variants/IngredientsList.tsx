@@ -1,5 +1,9 @@
 import { tv } from 'tailwind-variants';
-import { IngredientCard, IngredientType } from 'entities/ingredient';
+import {
+   IngredientCard,
+   IngredientCardSkeleton,
+   IngredientType,
+} from 'entities/ingredient';
 import { useAppDispatch } from 'shared/store/redux';
 import { toggleIngredient } from '../../../model/redux/slice';
 
@@ -26,6 +30,7 @@ export const IngredientsList = ({
    ingredients: IngredientType[];
 }) => {
    const dispatch = useAppDispatch();
+   const loadingArray = Array.from({ length: 6 }, (_, i) => i);
 
    return (
       <ul
@@ -33,16 +38,22 @@ export const IngredientsList = ({
             responsive: { lg: 'large', initial: 'initial' },
          })}
       >
-         {ingredients.map(el => (
-            <IngredientCard
-               key={el.id}
-               isSelected={!!selectedIngredients[el.name]}
-               onClick={() =>
-                  dispatch(toggleIngredient({ name: el.name, price: el.price }))
-               }
-               ingredient={el}
-            />
-         ))}
+         {ingredients.length
+            ? ingredients.map(el => (
+                 <IngredientCard
+                    key={el.id}
+                    isSelected={!!selectedIngredients[el.name]}
+                    onClick={() =>
+                       dispatch(
+                          toggleIngredient({ name: el.name, price: el.price }),
+                       )
+                    }
+                    ingredient={el}
+                 />
+              ))
+            : loadingArray.map(el => (
+                 <IngredientCardSkeleton backgroundColor="#e0e0e0" key={el} />
+              ))}
       </ul>
    );
 };

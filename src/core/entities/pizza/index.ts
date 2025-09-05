@@ -6,4 +6,4 @@ export {
 } from './model/pizza.types';
 
 export { PizzaCard } from './ui/card/PizzaCard';
-export { PizzaCardSkeleton } from './ui/card/loading/PizzaCardSkeleton';
+export { PizzaCardSkeleton } from './ui/card/skeleton/PizzaCardSkeleton';

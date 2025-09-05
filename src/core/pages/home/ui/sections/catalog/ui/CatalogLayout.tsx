@@ -7,6 +7,7 @@ import {
    parseAsStringEnum,
    useQueryStates,
 } from 'nuqs';
+import { useState } from 'react';
 import { EmptyPizza } from 'widgets/pizza-details-modal';
 import { getCartPizzas } from 'entities/cart';
 import { useGetPizzasQuery } from 'entities/pizza/api';
@@ -14,6 +15,7 @@ import { PizzaVariant } from 'shared/enums';
 import { useAppSelector } from 'shared/store/redux';
 import { useFilteredPizzas } from '../../filter';
 import { CatalogList } from './list/CatalogList';
+import { CatalogPagination } from './pagination/CatalogPagination';
 import { CatalogSkeleton } from './skeleton/CatalogSkeleton';
 
 export const PizzaCatalogLayout = ({ className }: { className?: string }) => {
@@ -31,21 +33,31 @@ export const PizzaCatalogLayout = ({ className }: { className?: string }) => {
       kind: parseAsString.withDefault(''),
       sort: parseAsString.withDefault(''),
    });
+   const [currentPage, setCurrentPage] = useState(1);
    const { filteredPizzas } = useFilteredPizzas({
       pizzas,
       searchParams: pizzaFilterSearchParams,
+      page: currentPage,
+      pageSize: 6,
    });
+
+   const handleCurrentPageChange = (page: number) => {
+      setCurrentPage(page);
+   };
 
    let content;
    if (isLoading) {
       content = <CatalogSkeleton />;
    } else {
       content = (
-         <CatalogList
-            cartPizzas={cartPizzas}
-            pizzas={filteredPizzas}
-            className={className}
-         />
+         <>
+            <CatalogList cartPizzas={cartPizzas} pizzas={filteredPizzas} />
+            <CatalogPagination
+               currentPage={currentPage}
+               total={pizzas?.length || 0}
+               handleCurrentPageChange={handleCurrentPageChange}
+            />
+         </>
       );
    }
    return (
@@ -59,17 +71,7 @@ export const PizzaCatalogLayout = ({ className }: { className?: string }) => {
          }}
       >
          <section className={className}>
-            {!isLoading && !filteredPizzas.length ? (
-               <EmptyPizza />
-            ) : (
-               <ul
-                  className={
-                     'grid grid-cols-[repeat(auto-fit,minmax(287px,1fr))] justify-between gap-10'
-                  }
-               >
-                  {content}
-               </ul>
-            )}
+            {!isLoading && !filteredPizzas.length ? <EmptyPizza /> : content}
          </section>
       </ConfigProvider>
    );

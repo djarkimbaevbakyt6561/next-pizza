@@ -16,7 +16,7 @@ import { useAppDispatch, useAppSelector } from 'shared/store/redux';
 const pizzaDetailsWidget = tv(
    {
       slots: {
-         content: 'flex flex-col',
+         content: 'grid',
          image: 'w-full h-full object-contain bg-orange-50 rounded-2xl',
          detailsContainer: 'flex flex-col justify-between',
          addButton: 'max-w-[18.75rem] w-full',
@@ -24,7 +24,7 @@ const pizzaDetailsWidget = tv(
       variants: {
          responsive: {
             initial: {
-               content: 'my-4 flex-col gap-4 ',
+               content: 'my-4 grid-cols-1 gap-4 ',
                detailsContainer: 'gap-4',
                addButton: 'max-w-none',
                image: 'p-4 max-w-none max-h-[20rem]',
@@ -35,7 +35,7 @@ const pizzaDetailsWidget = tv(
                image: 'p-9 max-h-[25rem]',
             },
             large: {
-               content: 'mt-10 gap-8 flex-row ',
+               content: 'mt-10 gap-8 grid-cols-2 ',
                image: 'h-auto max-h-none max-w-[35.625rem]',
             },
             xLarge: {

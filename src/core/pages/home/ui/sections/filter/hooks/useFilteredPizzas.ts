@@ -15,9 +15,13 @@ export type PizzaFilterSearchParams = {
 export const useFilteredPizzas = ({
    pizzas,
    searchParams,
+   page,
+   pageSize,
 }: {
    pizzas: PizzaType[] | undefined;
    searchParams: PizzaFilterSearchParams;
+   page: number;
+   pageSize: number;
 }) => {
    const [filteredPizzas, setFilteredPizzas] = useState<PizzaType[]>(
       pizzas ?? [],
@@ -68,8 +72,16 @@ export const useFilteredPizzas = ({
       if (searchParams.sort) {
          result = sortFilteredPizza(searchParams.sort, result);
       }
+
+      if (page) {
+         const startIndex = (page - 1) * pageSize;
+         const endIndex = startIndex + pageSize;
+
+         result = result.slice(startIndex, endIndex);
+      }
+
       setFilteredPizzas(result);
-   }, [pizzas, searchParams]);
+   }, [pizzas, searchParams, page]);
 
    return { filteredPizzas };
 };

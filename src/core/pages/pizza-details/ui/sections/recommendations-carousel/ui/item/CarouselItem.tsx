@@ -28,7 +28,7 @@ export const CarouselItem = ({
          addPizza={handleAddPizza}
          incrementCount={incrementCount}
          decrementCount={decrementCount}
-         className="block mx-auto h-[27.3125rem]"
+         className="block mx-auto"
          pizza={pizza}
       />
    );

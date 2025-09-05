@@ -4,6 +4,30 @@ import { PizzaCartItemType } from 'entities/cart';
 import { PizzaCardSkeleton, PizzaType } from 'entities/pizza';
 import { CarouselItem } from './item/CarouselItem';
 
+const recommendationsCarouselStyles = tv(
+   {
+      slots: {
+         title: 'font-bold col-start-1 col-end-4',
+      },
+      variants: {
+         size: {
+            initial: {
+               title: 'mb-2 mt-4  text-xl',
+            },
+            medium: {
+               title: 'mb-3 mt-8 text-2xl ',
+            },
+            large: {
+               title: 'mb-6 mt-12 text-3xl',
+            },
+         },
+      },
+   },
+   {
+      responsiveVariants: ['md', 'lg'],
+   },
+);
+
 const sampleArrow = tv({
    base: '!text-black',
 });
@@ -31,9 +55,17 @@ export const RecommendationsCarousel = ({
    pizzas: PizzaType[] | undefined;
    cartPizzas: PizzaCartItemType[];
 }) => {
+   const { title } = recommendationsCarouselStyles({
+      size: {
+         initial: 'initial',
+         md: 'medium',
+         lg: 'large',
+      },
+   });
    const loadingArray = Array.from({ length: 4 }, (_, i) => i);
    return (
       <section>
+         <h1 className={title()}>Recommendations</h1>
          <Carousel
             arrows
             nextArrow={<SampleArrow />}

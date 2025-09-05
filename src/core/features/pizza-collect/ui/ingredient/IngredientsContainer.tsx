@@ -21,20 +21,16 @@ export const IngredientsContainer = ({
    return (
       <div>
          <h3 className={ingredientsTitle()}>Add to taste</h3>
-         {ingredients.length ? (
-            variant === 'pizzaDetails' ? (
-               <IngredientsCarousel
-                  selectedIngredients={selectedIngredients}
-                  ingredients={ingredients}
-               />
-            ) : (
-               <IngredientsList
-                  selectedIngredients={selectedIngredients}
-                  ingredients={ingredients}
-               />
-            )
+         {variant === 'pizzaDetails' ? (
+            <IngredientsCarousel
+               selectedIngredients={selectedIngredients}
+               ingredients={ingredients}
+            />
          ) : (
-            <h1>Loading</h1>
+            <IngredientsList
+               selectedIngredients={selectedIngredients}
+               ingredients={ingredients}
+            />
          )}
       </div>
    );

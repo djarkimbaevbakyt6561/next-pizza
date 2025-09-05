@@ -1,26 +1,27 @@
 import { Carousel, CarouselProps } from 'antd';
 import { tv } from 'tailwind-variants';
-import { IngredientCard, IngredientType } from 'entities/ingredient';
+import {
+   IngredientCard,
+   IngredientCardSkeleton,
+   IngredientType,
+} from 'entities/ingredient';
 import { useAppDispatch } from 'shared/store/redux';
 import { toggleIngredient } from '../../../model/redux/slice';
 
 const ingredientsCarousel = tv(
    {
       slots: {
-         carousel: '',
-         ingredientWrapper: 'box-content',
-         ingredientCard: 'm-1',
+         carousel: 'mx-auto',
+         ingredientWrapper: 'p-[0.3125rem]',
+         ingredientCard: '',
       },
       variants: {
          responsive: {
             initial: {
-               carousel: 'mx-auto max-w-[25rem]',
-            },
-            large: {
-               carousel: 'max-w-[23rem]',
+               carousel: 'max-w-[26.125rem]',
             },
             xLarge: {
-               carousel: 'mx-0 max-w-[35rem]',
+               carousel: 'max-w-[35rem]',
             },
          },
       },
@@ -57,9 +58,9 @@ export const IngredientsCarousel = ({
 }) => {
    const dispatch = useAppDispatch();
    const { carousel, ingredientWrapper, ingredientCard } = ingredientsCarousel({
-      responsive: { initial: 'initial', xl: 'xLarge', lg: 'large' },
+      responsive: { initial: 'initial', xl: 'xLarge' },
    });
-
+   const loadingArray = Array.from({ length: 6 }, (_, i) => i);
    return (
       <Carousel
          arrows
@@ -68,6 +69,7 @@ export const IngredientsCarousel = ({
          prevArrow={<SampleArrow />}
          slidesToShow={4}
          slidesToScroll={4}
+         dots={false}
          responsive={[
             {
                breakpoint: 1280,
@@ -92,23 +94,29 @@ export const IngredientsCarousel = ({
             },
          ]}
       >
-         {ingredients.map(item => (
-            <div className={ingredientWrapper()} key={item.id}>
-               <IngredientCard
-                  className={ingredientCard()}
-                  isSelected={!!selectedIngredients[item.name]}
-                  onClick={() =>
-                     dispatch(
-                        toggleIngredient({
-                           name: item.name,
-                           price: item.price,
-                        }),
-                     )
-                  }
-                  ingredient={item}
-               />
-            </div>
-         ))}
+         {ingredients.length
+            ? ingredients.map(item => (
+                 <div className={ingredientWrapper()} key={item.id}>
+                    <IngredientCard
+                       className={ingredientCard()}
+                       isSelected={!!selectedIngredients[item.name]}
+                       onClick={() =>
+                          dispatch(
+                             toggleIngredient({
+                                name: item.name,
+                                price: item.price,
+                             }),
+                          )
+                       }
+                       ingredient={item}
+                    />
+                 </div>
+              ))
+            : loadingArray.map(el => (
+                 <div className={ingredientWrapper()} key={el}>
+                    <IngredientCardSkeleton className={ingredientCard()} />
+                 </div>
+              ))}
       </Carousel>
    );
 };

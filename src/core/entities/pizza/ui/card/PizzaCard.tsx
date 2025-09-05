@@ -3,6 +3,7 @@ import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
 import { tv } from 'tailwind-variants';
+import { useRouter } from 'nextjs-toploader/app';
 import { PizzaType } from 'entities/pizza';
 import { CollectIcon } from 'shared/assets';
 import { Counter } from 'shared/ui';
@@ -10,13 +11,13 @@ import SettingsIcon from '../../assets/settings.svg';
 
 const pizzaCard = tv({
    slots: {
-      base: 'flex flex-col max-w-[17.9375rem]',
+      base: 'flex flex-col max-w-[17.9375rem] h-[26.875rem]',
       imageContainer: 'relative box-content rounded-2xl bg-orange-50 py-6 px-9',
       settingsLink: 'absolute right-5 top-5',
       title: 'text-2xl font-bold mt-4',
       description:
          'first-letter:uppercase text-sm text-neutral-400 flex-1 mt-2',
-      footer: 'flex items-center justify-between mt-5',
+      footer: 'flex items-center justify-between',
       price: 'text-xl',
       boldPrice: 'font-bold',
       counterContainer: 'flex',
@@ -53,7 +54,10 @@ export const PizzaCard = ({
       boldPrice,
       counterContainer,
    } = pizzaCard();
-
+   const router = useRouter();
+   const handleOnCollect = () => {
+      router.push(`/pizza/${pizza.id}/details`);
+   };
    return (
       <div className={clsx(base(), className)}>
          <div className={imageContainer()}>
@@ -82,15 +86,14 @@ export const PizzaCard = ({
                      starting at{' '}
                      <span className={boldPrice()}>{pizza.defaultPrice} $</span>
                   </p>
-                  <Link href={`/pizza/${pizza.id}/details`}>
-                     <Button
-                        color="primary"
-                        variant="filled"
-                        icon={<CollectIcon />}
-                     >
-                        Collect
-                     </Button>
-                  </Link>
+                  <Button
+                     color="primary"
+                     variant="filled"
+                     icon={<CollectIcon />}
+                     onClick={handleOnCollect}
+                  >
+                     Collect
+                  </Button>
                </>
             ) : (
                <>

@@ -1,7 +1,7 @@
 'use client';
 import { Button, ConfigProvider } from 'antd';
-import { useRouter } from 'next/navigation';
 import { tv } from 'tailwind-variants';
+import { useRouter } from 'nextjs-toploader/app';
 import { getCartTaxAmount, getCartTotalSum } from 'entities/cart';
 import { ArrowRightIcon } from 'shared/assets';
 import { useAppSelector } from 'shared/store/redux';

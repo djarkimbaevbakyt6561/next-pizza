@@ -66,6 +66,11 @@ export const App = ({ children }: AppProps) => {
                            footerPaddingBlock: 0,
                            footerPaddingInline: 0,
                         },
+                        Pagination: {
+                           motionDurationSlow: '0s',
+                           itemSize: 45,
+                           borderRadius: 15,
+                        },
                      },
                   }}
                >
