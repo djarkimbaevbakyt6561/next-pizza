@@ -21,7 +21,7 @@ A modern, productive online pizza shop built on Next.js/TypeScript + TailwindCSS
 
 | Tech              | Description                           |
 |-------------------|---------------------------------------------------------|
-| Nextjs/TypeScript | Front-end JavaScript library                            |
+| Nextjs/TypeScript | Full-Stack JavaScript library                            |
 | TailwindCSS       | Utility-first CSS framework                             |
 | Tailwind-Variants | Library that improves readability with Tailwind CSS     |
 | Ant Design        | UI Library that provides ready-made components          |
