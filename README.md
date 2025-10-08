@@ -11,7 +11,7 @@ A modern, productive online pizza shop built on Next.js/TypeScript + TailwindCSS
 ## ✨ Features
 - 🎨 Designed the architecture based on Feature-Sliced ​​Design and modified it
 - 🔧 Configured configs (ESLint, TypeScript, Tailwind, Next.js), implemented a unified code style, used Design Patterns, implemented Code splitting, and optimized perfectly.
-- 💡 Implemented the main features of Next.js 15 + React 19: Server/Client Components, Intercepting & Parallel routes, Lazy loading.
+- 🚀 Implemented the main features of Next.js 15 + React 19: Server/Client Components, Intercepting & Parallel routes, Lazy loading.
 - ⚙️ Optimized loading and UX: manual cart hydration, query management via RTK-Query, minimized waits (proper loading UX).
 - ⌨️ Provided SEO Accessibility, and Keyboard Control
 - 🖥️ Implemented adaptability for mobile devices.
